@@ -1,0 +1,91 @@
+/* Sider */
+.sider {
+  background-color: var(--color-bg-1);
+  height: 100vh;
+  position: relative;
+}
+
+.sider .sider-logo {
+  padding: 40px 20px;
+  border-bottom: 1px solid white;
+}
+
+.sider .sider-logo img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.sider .sider-info {
+  padding: 10px 0 20px 0;
+  margin: 10px 0 20px 0;
+  border-radius: 10px;
+  border: 1px solid black;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.sider .sider-info .inner-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+}
+
+.sider .sider-info .inner-avatar img {
+  width: 70%;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.sider .sider-menu .sider-menu-item {
+  display: flex;
+  align-items: center;
+  color: white;
+  padding: 15px 20px 15px 30px;
+  margin: 10px 0;
+  gap: 15px;
+  border-radius: 10px;
+}
+
+.sider .sider-menu .sider-menu-item:hover {
+  background: #ECB1B34F;
+}
+
+.sider .sider-actions {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+
+.sider .sider-actions .sider-action {
+  display: flex;
+  align-items: center;
+  color: white;
+  padding: 10px 20px 10px 30px;
+  margin: 5px 0;
+  gap: 15px;
+  border-radius: 10px;
+}
+
+.sider .sider-actions .sider-action:hover {
+  background: #ECB1B34F;
+}
+/* End Sider */
+
+/* Header */
+.header {
+  background-color: var(--color-bg-2);
+}
+
+.header .inner-icons {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  gap: 25px;
+  padding: 10px 40px 10px 0;
+}
+/* End Header */
