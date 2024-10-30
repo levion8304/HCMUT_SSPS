@@ -1,3 +1,7 @@
+.main {
+  padding: 10px;
+}
+
 /* Sider */
 .sider {
   background-color: var(--color-bg-1);
@@ -17,14 +21,18 @@
 }
 
 .sider .sider-info {
-  padding: 10px 0 20px 0;
-  margin: 10px 0 20px 0;
+  padding: 10px;
+  margin: 10px 0 10px 15px;
   border-radius: 10px;
-  border: 1px solid black;
 
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+}
+
+.sider .sider-info:hover {
+  background: #ECB1B34F;
+  cursor: pointer;
 }
 
 .sider .sider-info .inner-avatar {
@@ -41,17 +49,29 @@
   object-fit: cover;
 }
 
+.sider .sider-menu {
+  width: 100%;
+}
 .sider .sider-menu .sider-menu-item {
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 15px;
+  margin-left: 15px;
+}
+.sider .sider-menu .sider-menu-item a {
   display: flex;
   align-items: center;
   color: white;
-  padding: 15px 20px 15px 30px;
-  margin: 10px 0;
+  
   gap: 15px;
-  border-radius: 10px;
+  text-decoration: none;
 }
 
 .sider .sider-menu .sider-menu-item:hover {
+  background: #ECB1B34F;
+}
+
+.sider .sider-menu .sider-menu-active {
   background: #ECB1B34F;
 }
 
@@ -65,14 +85,15 @@
   display: flex;
   align-items: center;
   color: white;
-  padding: 10px 20px 10px 30px;
-  margin: 5px 0;
+  padding: 10px 15px;
   gap: 15px;
   border-radius: 10px;
+  margin-left: 15px;
 }
 
 .sider .sider-actions .sider-action:hover {
   background: #ECB1B34F;
+  cursor: pointer;
 }
 /* End Sider */
 

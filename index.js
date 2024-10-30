@@ -17,6 +17,10 @@ app.use(express.static(`${__dirname}/public`));
 clientRoutes(app);
 adminRoutes(app);
 
+// App locals variables
+const systemConfig = require("./config/system");
+app.locals.prefixAdmin = systemConfig.prefixAdmin;
+
 app.listen(port, () => {
   console.log(`App listen on port ${port}`);
 });
