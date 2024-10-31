@@ -22,12 +22,16 @@
 
 .sider .sider-info {
   padding: 10px;
-  margin: 10px 0 10px 15px;
+  margin: 10px 0 10px 0px;
   border-radius: 10px;
+}
 
+.sider .sider-info a {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  text-decoration: none;
+  color: var(--color-text-1);
 }
 
 .sider .sider-info:hover {
@@ -56,7 +60,6 @@
   border-radius: 10px;
   overflow: hidden;
   padding: 15px;
-  margin-left: 15px;
 }
 .sider .sider-menu .sider-menu-item a {
   display: flex;
@@ -85,10 +88,9 @@
   display: flex;
   align-items: center;
   color: white;
-  padding: 10px 15px;
+  padding: 8px 15px;
   gap: 15px;
   border-radius: 10px;
-  margin-left: 15px;
 }
 
 .sider .sider-actions .sider-action:hover {
@@ -107,6 +109,6 @@
   align-items: center;
   justify-content: right;
   gap: 25px;
-  padding: 10px 40px 10px 0;
+  padding: 10px 20px 10px 0;
 }
 /* End Header */
