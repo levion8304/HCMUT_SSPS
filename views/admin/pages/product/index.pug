@@ -1,4 +1,184 @@
 extends ../../layouts/default.pug
 
+block style 
+  link(rel="stylesheet", href="/admin/css/product-index.css")
+
 block main 
-  h1 #{pageTitle}
+  .container-fluid 
+    .row.mb-4 
+      .col-12
+        .inner-title.my-3
+          h3 Sản phẩm 
+          button Thêm sản phẩm
+        .inner-inform.my-3
+          .inner-inform-item 
+            .inner-desc Tất cả
+            .inner-count (100)
+          .inner-inform-item 
+            .inner-desc Đã đăng
+            .inner-count (80)
+          .inner-inform-item 
+            .inner-desc Bản nháp
+            .inner-count (20)
+          .inner-inform-item 
+            .inner-desc Lọc sản phẩm
+        .inner-actions.my-3
+          .dropdown 
+            button(
+              data-bs-toggle="dropdown"
+              class="btn filter-button"
+              type="button"
+            ) 
+              div Tác vụ 
+              img(src="/admin/images/printer-arrow-down.svg" alt="")
+          .dropdown 
+            button(
+              data-bs-toggle="dropdown"
+              class="btn filter-button"
+              type="button"
+            ) 
+              div Tất cả các ngày
+              img(src="/admin/images/printer-arrow-down.svg" alt="")
+          .dropdown 
+            button(
+              data-bs-toggle="dropdown"
+              class="btn filter-button"
+              type="button"
+            ) 
+              div Chọn danh mục 
+              img(src="/admin/images/printer-arrow-down.svg" alt="")
+          .dropdown 
+            button(
+              data-bs-toggle="dropdown"
+              class="btn filter-button"
+              type="button"
+            ) 
+              div Toàn bộ sản phẩm
+              img(src="/admin/images/printer-arrow-down.svg" alt="")
+
+    .row-my-5
+      .col-12 
+        table.table.table-hover.align-middle
+          thead 
+            tr.text-center 
+              th 
+                input(type="checkbox" name="checkall")
+              th 
+                img(src="/admin/images/product-image-icon.svg" alt="")
+              th Tên sản phẩm
+              th Mã sản phẩm
+              th Kho
+              th Giá
+              th Ghi chú
+          tbody
+            tr.text-center 
+              td 
+                input(type="checkbox" name="id")
+              td
+                img(src="https://s3-alpha-sig.figma.com/img/c082/3eb0/35520cd3f16bf611fa92ae879092cf6d?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Ibsv5VRyTQLPx0LVEvmEJEj4GtWQZwOEeVP-uMyVlocHBs3Sq-rdpUObpfZn26euBfH2ARY6mFFD7otXGw4tdHFtSCFNrj5hb5Y41n5z3s5EKeLciQKGM8anSes0c4ZltEOtuOddOdztGhnOtu~QZiTxPz900ZZZ0WmHaQFnsDFChBy-eVbMylvFrjU6r3ViCbGASYPdVsUnE4qr7fN06muxPMcdVZ7dGc34yMm28Rem8-boPHE48R6hOTY6E9oTxXF4Pp6wkd0tH9U3CIIvBFk2j-ZZH8P1aW7QN1YOaOIZ93yGL9elGr5gxEixhhoBgHubtfESjq5eUlQxHhaeBQ__" alt="" height="60px" width="60px")
+              td Giấy A4
+              td GA43004
+              td.text-danger Còn hàng
+              td.text-danger 55.000đ
+              td 
+                .inner-note
+                  img(src="/admin/images/printer-note-icon-1.svg" alt="")
+                  img(src="/admin/images/printer-note-icon-2.svg" alt="")
+            tr.text-center 
+              td 
+                input(type="checkbox" name="id")
+              td
+                img(src="https://s3-alpha-sig.figma.com/img/c082/3eb0/35520cd3f16bf611fa92ae879092cf6d?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Ibsv5VRyTQLPx0LVEvmEJEj4GtWQZwOEeVP-uMyVlocHBs3Sq-rdpUObpfZn26euBfH2ARY6mFFD7otXGw4tdHFtSCFNrj5hb5Y41n5z3s5EKeLciQKGM8anSes0c4ZltEOtuOddOdztGhnOtu~QZiTxPz900ZZZ0WmHaQFnsDFChBy-eVbMylvFrjU6r3ViCbGASYPdVsUnE4qr7fN06muxPMcdVZ7dGc34yMm28Rem8-boPHE48R6hOTY6E9oTxXF4Pp6wkd0tH9U3CIIvBFk2j-ZZH8P1aW7QN1YOaOIZ93yGL9elGr5gxEixhhoBgHubtfESjq5eUlQxHhaeBQ__" alt="" height="60px" width="60px")
+              td Giấy A4
+              td GA43004
+              td.text-danger Còn hàng
+              td.text-danger 55.000đ
+              td 
+                .inner-note
+                  img(src="/admin/images/printer-note-icon-1.svg" alt="")
+                  img(src="/admin/images/printer-note-icon-2.svg" alt="")
+            tr.text-center 
+              td 
+                input(type="checkbox" name="id")
+              td
+                img(src="https://s3-alpha-sig.figma.com/img/c082/3eb0/35520cd3f16bf611fa92ae879092cf6d?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Ibsv5VRyTQLPx0LVEvmEJEj4GtWQZwOEeVP-uMyVlocHBs3Sq-rdpUObpfZn26euBfH2ARY6mFFD7otXGw4tdHFtSCFNrj5hb5Y41n5z3s5EKeLciQKGM8anSes0c4ZltEOtuOddOdztGhnOtu~QZiTxPz900ZZZ0WmHaQFnsDFChBy-eVbMylvFrjU6r3ViCbGASYPdVsUnE4qr7fN06muxPMcdVZ7dGc34yMm28Rem8-boPHE48R6hOTY6E9oTxXF4Pp6wkd0tH9U3CIIvBFk2j-ZZH8P1aW7QN1YOaOIZ93yGL9elGr5gxEixhhoBgHubtfESjq5eUlQxHhaeBQ__" alt="" height="60px" width="60px")
+              td Giấy A4
+              td GA43004
+              td.text-danger Còn hàng
+              td.text-danger 55.000đ
+              td 
+                .inner-note
+                  img(src="/admin/images/printer-note-icon-1.svg" alt="")
+                  img(src="/admin/images/printer-note-icon-2.svg" alt="")
+            tr.text-center 
+              td 
+                input(type="checkbox" name="id")
+              td
+                img(src="https://s3-alpha-sig.figma.com/img/c082/3eb0/35520cd3f16bf611fa92ae879092cf6d?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Ibsv5VRyTQLPx0LVEvmEJEj4GtWQZwOEeVP-uMyVlocHBs3Sq-rdpUObpfZn26euBfH2ARY6mFFD7otXGw4tdHFtSCFNrj5hb5Y41n5z3s5EKeLciQKGM8anSes0c4ZltEOtuOddOdztGhnOtu~QZiTxPz900ZZZ0WmHaQFnsDFChBy-eVbMylvFrjU6r3ViCbGASYPdVsUnE4qr7fN06muxPMcdVZ7dGc34yMm28Rem8-boPHE48R6hOTY6E9oTxXF4Pp6wkd0tH9U3CIIvBFk2j-ZZH8P1aW7QN1YOaOIZ93yGL9elGr5gxEixhhoBgHubtfESjq5eUlQxHhaeBQ__" alt="" height="60px" width="60px")
+              td Giấy A4
+              td GA43004
+              td.text-danger Còn hàng
+              td.text-danger 55.000đ
+              td 
+                .inner-note
+                  img(src="/admin/images/printer-note-icon-1.svg" alt="")
+                  img(src="/admin/images/printer-note-icon-2.svg" alt="")
+            tr.text-center 
+              td 
+                input(type="checkbox" name="id")
+              td
+                img(src="https://s3-alpha-sig.figma.com/img/c082/3eb0/35520cd3f16bf611fa92ae879092cf6d?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Ibsv5VRyTQLPx0LVEvmEJEj4GtWQZwOEeVP-uMyVlocHBs3Sq-rdpUObpfZn26euBfH2ARY6mFFD7otXGw4tdHFtSCFNrj5hb5Y41n5z3s5EKeLciQKGM8anSes0c4ZltEOtuOddOdztGhnOtu~QZiTxPz900ZZZ0WmHaQFnsDFChBy-eVbMylvFrjU6r3ViCbGASYPdVsUnE4qr7fN06muxPMcdVZ7dGc34yMm28Rem8-boPHE48R6hOTY6E9oTxXF4Pp6wkd0tH9U3CIIvBFk2j-ZZH8P1aW7QN1YOaOIZ93yGL9elGr5gxEixhhoBgHubtfESjq5eUlQxHhaeBQ__" alt="" height="60px" width="60px")
+              td Giấy A4
+              td GA43004
+              td.text-danger Còn hàng
+              td.text-danger 55.000đ
+              td 
+                .inner-note
+                  img(src="/admin/images/printer-note-icon-1.svg" alt="")
+                  img(src="/admin/images/printer-note-icon-2.svg" alt="")
+            tr.text-center 
+              td 
+                input(type="checkbox" name="id")
+              td
+                img(src="https://s3-alpha-sig.figma.com/img/c082/3eb0/35520cd3f16bf611fa92ae879092cf6d?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Ibsv5VRyTQLPx0LVEvmEJEj4GtWQZwOEeVP-uMyVlocHBs3Sq-rdpUObpfZn26euBfH2ARY6mFFD7otXGw4tdHFtSCFNrj5hb5Y41n5z3s5EKeLciQKGM8anSes0c4ZltEOtuOddOdztGhnOtu~QZiTxPz900ZZZ0WmHaQFnsDFChBy-eVbMylvFrjU6r3ViCbGASYPdVsUnE4qr7fN06muxPMcdVZ7dGc34yMm28Rem8-boPHE48R6hOTY6E9oTxXF4Pp6wkd0tH9U3CIIvBFk2j-ZZH8P1aW7QN1YOaOIZ93yGL9elGr5gxEixhhoBgHubtfESjq5eUlQxHhaeBQ__" alt="" height="60px" width="60px")
+              td Giấy A4
+              td GA43004
+              td.text-danger Còn hàng
+              td.text-danger 55.000đ
+              td 
+                .inner-note
+                  img(src="/admin/images/printer-note-icon-1.svg" alt="")
+                  img(src="/admin/images/printer-note-icon-2.svg" alt="")
+            tr.text-center 
+              td 
+                input(type="checkbox" name="id")
+              td
+                img(src="https://s3-alpha-sig.figma.com/img/c082/3eb0/35520cd3f16bf611fa92ae879092cf6d?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Ibsv5VRyTQLPx0LVEvmEJEj4GtWQZwOEeVP-uMyVlocHBs3Sq-rdpUObpfZn26euBfH2ARY6mFFD7otXGw4tdHFtSCFNrj5hb5Y41n5z3s5EKeLciQKGM8anSes0c4ZltEOtuOddOdztGhnOtu~QZiTxPz900ZZZ0WmHaQFnsDFChBy-eVbMylvFrjU6r3ViCbGASYPdVsUnE4qr7fN06muxPMcdVZ7dGc34yMm28Rem8-boPHE48R6hOTY6E9oTxXF4Pp6wkd0tH9U3CIIvBFk2j-ZZH8P1aW7QN1YOaOIZ93yGL9elGr5gxEixhhoBgHubtfESjq5eUlQxHhaeBQ__" alt="" height="60px" width="60px")
+              td Giấy A4
+              td GA43004
+              td.text-danger Còn hàng
+              td.text-danger 55.000đ
+              td 
+                .inner-note
+                  img(src="/admin/images/printer-note-icon-1.svg" alt="")
+                  img(src="/admin/images/printer-note-icon-2.svg" alt="")
+          
+    .row.mt-5.justify-content-center.text-center
+      .col-5.d-flex.justify-content-center 
+        ul.pagination.gap-3
+          li.page-item
+            a.page-link(href="#")
+              span 
+                svg(width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg")
+                  path(d="M15 18L9 12L15 6" stroke="#747474" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round")
+          li.page-item.active.page-number
+            a.page-link(href="#") 1
+          li.page-item.page-number 
+            a.page-link(href="#") 2
+          li.page-item.page-number 
+            a.page-link(href="#") 3
+          li.page-item
+            a.page-link(href="#")
+              span
+                svg(width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg")
+                  path(d="M9 18L15 12L9 6" stroke="#747474" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round")    

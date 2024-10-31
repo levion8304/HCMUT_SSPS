@@ -1,0 +1,76 @@
+.nav {
+  border-bottom: 1px solid black;
+  gap: 80px;
+  padding-left: 20px;
+}
+
+.nav .nav-link {
+  color: black;
+}
+.nav .nav-link:hover {
+  border-bottom: 2px solid var(--color-bg-1);
+}
+
+.nav .nav-link.active {
+  border-bottom: 2px solid var(--color-bg-1);
+}
+
+.inner-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.inner-actions .input-box {
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  border: 2px solid #ECECEC;
+  width: fit-content;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.inner-actions .input-box img {
+  padding-left: 10px;
+}
+
+.inner-actions .input-box input {
+  border: none;
+  outline: none;
+  padding: 5px 0;
+}
+
+
+
+
+/* Pagination */
+.pagination  {
+  align-items: center;
+}
+.page-item:first-child .page-link{
+  border: none;
+  outline: none;
+}
+
+.page-item:last-child .page-link{
+  border: none;
+  outline: none;
+}
+
+.page-number .page-link {
+  border-radius: 5px;
+  color: black;
+  padding: 1.5px 8px;
+  border: 1px solid black;
+}
+
+.page-number .page-link:hover {
+  color: white;
+  background-color: var(--color-bg-1);
+}
+
+.pagination .active .page-link {
+  color: white;
+  background-color: var(--color-bg-1);
+}
