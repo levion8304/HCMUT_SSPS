@@ -177,3 +177,100 @@
   font-size: 15px;
 }
 /* End Footer */
+
+/* Sider */
+.sider {
+  height: 100vh;
+  position: relative;
+  box-shadow: 6px 0px 18px 0px #0000000F;
+}
+
+.sider .sider-hello {
+  color: var(--color-bg-1);
+  padding: 20px 40px 20px 20px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.sider .sider-info {
+  padding: 10px;
+  margin: 10px 0 10px 0px;
+  border-radius: 10px;
+}
+
+.sider .sider-info a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--color-text-1);
+  gap: 20px;
+}
+
+.sider .sider-info:hover {
+  background: #ECB1B34F;
+  cursor: pointer;
+}
+
+.sider .sider-info .inner-info {
+  flex: 1;
+}
+
+.sider .sider-info .inner-avatar {
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+  width: fit-content;
+}
+
+.sider .sider-info .inner-avatar img {
+  width: 50px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.sider .sider-menu {
+  width: 100%;
+}
+.sider .sider-menu .sider-menu-item {
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 15px;
+}
+.sider .sider-menu .sider-menu-item a {
+  display: flex;
+  align-items: center;
+  color: black;
+  
+  gap: 15px;
+  text-decoration: none;
+}
+
+.sider .sider-menu .sider-menu-item:hover {
+  background: #ECB1B34F;
+}
+
+.sider .sider-menu .sider-menu-active {
+  background: #ECB1B34F;
+}
+
+.sider .sider-actions {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+
+.sider .sider-actions .sider-action {
+  display: flex;
+  align-items: center;
+  color: white;
+  padding: 8px 15px;
+  gap: 15px;
+  border-radius: 10px;
+}
+
+.sider .sider-actions .sider-action:hover {
+  background: #ECB1B34F;
+  cursor: pointer;
+}
+/* End Sider */

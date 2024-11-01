@@ -11,3 +11,10 @@ module.exports.signup = (req, res) => {
     pageTitle: "Đăng ký"
   })
 }
+
+// [GET] /user/log-order
+module.exports.logOrder = (req, res) => {
+  res.render("client/pages/user/log-order.pug", {
+    pageTitle: "Lịch sử đơn hàng"
+  })
+}
