@@ -1,0 +1,99 @@
+extends ../../layouts/default.pug
+
+block style 
+  link(rel="stylesheet", href="/client/css/print-create.css")
+
+block main 
+  .container 
+    .row 
+      .col-12 
+        h2 Tạo in ấn 
+    .row 
+      .col-12 
+        .inner-form.mb-5
+          .inner-left-content 
+            .inner-image 
+              img(src="/client/images/print-image.svg" alt="")
+            .inner-desc  
+              span Chi phí: <span>1000đ/tờ/đen trắng</span>
+              span Chi phí: <span>3000đ/tờ/màu</span>
+          .inner-right-content 
+            h5 In đồ án tốt nghiệp
+            form(action="") 
+              .row 
+                .col-6
+                  div(class="form-group mb-3")
+                    label(for="type-print") Chọn loại in 
+                    input(
+                      type="text"
+                      class="form-control"
+                      name="type-print"
+                      id="type-print"
+                      placeholder="Chọn loại in"
+                      required
+                    )
+                  div(class="form-group mb-3")
+                    label(for="quantity-page") Số lượng tờ
+                    input(
+                      type="text"
+                      class="form-control"
+                      name="quantity-page"
+                      id="quantity-page"
+                      placeholder="Số lượng tờ"
+                      required
+                    )
+                  .checkbox
+                    div(class="form-check")
+                      input(
+                        type="radio"
+                        class="form-check-input"
+                        id="frontside"
+                        name="side"
+                      )
+                      label(for="frontside" class="form-check-label") Mặt trước
+                    div(class="form-check")
+                      input(
+                        type="radio"
+                        class="form-check-input"
+                        id="backside"
+                        name="side"
+                        required
+                      )
+                      label(for="backside" class="form-check-label") Mặt sau
+                .col-6
+                  div(class="form-group mb-3")
+                    label(for="file") Chọn file 
+                    input(
+                      type="file"
+                      class="form-control"
+                      required
+                    )
+                  div(class="form-group mb-3")
+                    label(for="size") Khổ giấy 
+                    input(
+                      type="text"
+                      class="form-control"
+                      placeholder="Vui lòng chọn"
+                      name="size"
+                      id="size"
+                      required
+                    )
+                  div(class="form-group")
+                    label(for="quantity-copy") Số lượng bản in
+                    input(
+                      type="text"
+                      class="form-control"
+                      placeholder="Vui lòng chọn"
+                      name="quantity-copy"
+                      id="quantity-copy"
+                      required
+                    )
+              .row.text-center
+                .col-12
+                  div(class="form-group d-flex justify-content-center mt-4 mb-3")
+                    button(
+                      type="submit"
+                      class="btn submit-button"
+                    ) In ấn
+                  b Thời gian dự kiến: 24h
+

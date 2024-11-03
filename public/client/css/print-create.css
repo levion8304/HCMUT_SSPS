@@ -1,0 +1,65 @@
+.main {
+  background-color: white;
+}
+
+h2 {
+  text-indent: 80px;
+  margin: 40px 0;
+}
+
+.inner-form {
+  display: flex;
+  align-items: center;
+  background-color: #D5D5D5;
+  border-radius: 20px;
+  gap: 100px;
+  padding: 50px 0 50px 80px;
+}
+
+.inner-form .inner-left-content .inner-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.inner-form .inner-left-content .inner-image img {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+}
+
+.inner-form .inner-left-content .inner-desc {
+  font-weight: bold;
+}
+
+.inner-form .inner-left-content .inner-desc span span {
+  color: var(--color-bg-1);
+}
+
+.inner-form .inner-left-content .inner-desc > span {
+  display: block;
+  margin-top: 10px;
+}
+
+.inner-form .inner-right-content .checkbox {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.inner-form .inner-right-content {
+  position: relative;
+}
+
+.inner-form .inner-right-content h5 {
+  position: relative;
+  top: -25px;
+}
+
+.inner-form .inner-right-content .submit-button {
+  background-color: var(--color-bg-1);
+  border-radius: 20px;
+  color: white;
+  padding: 6px 50px;
+}
