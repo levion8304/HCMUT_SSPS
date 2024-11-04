@@ -12,3 +12,10 @@ module.exports.create = (req, res) => {
     pageTitle: "Trang tạo in ấn"
   })
 }
+
+// [GET] /print/buy-paper
+module.exports.buyPaper = (req, res) => {
+  res.render("client/pages/print/buy-paper.pug", {
+    pageTitle: "Mua giấy"
+  })
+}
