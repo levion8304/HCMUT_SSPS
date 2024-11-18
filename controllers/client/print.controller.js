@@ -19,3 +19,12 @@ module.exports.buyPaper = (req, res) => {
     pageTitle: "Mua giấy"
   })
 }
+
+//[GET] /print/create/get-input
+
+module.exports.getInput = (req,res) => {
+  console.log(req.query);
+  res.render("client/pages/print/create.pug", {
+      pageTitle: "Trang tạo in ấn"
+    })
+}

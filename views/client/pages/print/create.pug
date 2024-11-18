@@ -19,7 +19,7 @@ block main
               span Chi phí: <span>3000đ/tờ/màu</span>
           .inner-right-content 
             h5 In đồ án tốt nghiệp
-            form(action="") 
+            form(action="/print/create/get-input") 
               .row 
                 .col-6
                   div(class="form-group mb-3")
@@ -69,6 +69,7 @@ block main
                     input(
                       type="file"
                       class="form-control"
+                      name="file-name"
                       required
                     )
                   div(class="form-group mb-3")
