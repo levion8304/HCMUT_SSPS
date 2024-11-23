@@ -19,26 +19,26 @@ block main
               span Chi phí: <span>3000đ/tờ/màu</span>
           .inner-right-content 
             h5 In đồ án tốt nghiệp
-            form(action="/print/create/get-input") 
+            form(action="/print/create/get-print-info") 
               .row 
                 .col-6
                   div(class="form-group mb-3")
-                    label(for="type-print") Chọn loại in 
+                    label(for="printtype") Chọn loại in 
                     input(
                       type="text"
                       class="form-control"
-                      name="type-print"
-                      id="type-print"
+                      name="printtype"
+                      id="printtype"
                       placeholder="Chọn loại in"
                       required
                     )
                   div(class="form-group mb-3")
-                    label(for="quantity-page") Số lượng tờ
+                    label(for="pagenum") Số lượng tờ 1 bản
                     input(
                       type="text"
                       class="form-control"
-                      name="quantity-page"
-                      id="quantity-page"
+                      name="pagenum"
+                      id="pagenum"
                       placeholder="Số lượng tờ"
                       required
                     )
@@ -63,13 +63,24 @@ block main
                         required
                       )
                       label(for="backside" class="form-check-label") Mặt sau
+                    div(class="form-check")
+                      input(
+                        type="radio"
+                        class="form-check-input"
+                        id="bothside"
+                        value="both"
+                        name="side"
+                        required
+                      )
+                      label(for="bothside" class="form-check-label") Hai mặt
                 .col-6
                   div(class="form-group mb-3")
-                    label(for="file") Chọn file 
+                    label(for="filename") Chọn file 
                     input(
                       type="file"
                       class="form-control"
-                      name="file-name"
+                      name="filename"
+                      id="filename"
                       required
                     )
                   div(class="form-group mb-3")
@@ -83,13 +94,13 @@ block main
                       required
                     )
                   div(class="form-group")
-                    label(for="quantity-copy") Số lượng bản in
+                    label(for="copy") Số lượng bản in
                     input(
                       type="text"
                       class="form-control"
                       placeholder="Vui lòng chọn"
-                      name="quantity-copy"
-                      id="quantity-copy"
+                      name="copy"
+                      id="copy"
                       required
                     )
               .row.text-center
@@ -100,4 +111,8 @@ block main
                       class="btn submit-button"
                     ) In ấn
                   b Thời gian dự kiến: 24h
+              .error_messages
+              each error_message in error_messages
+                div= error_message 
+                    
 

@@ -10,7 +10,7 @@ routes.get("/create", controller.create);
 
 routes.get("/buy-paper", controller.buyPaper);
 
-routes.get('/create/get-input', controller.getInput)
+routes.get('/create/get-print-info', controller.getPrintInfo)
 
 module.exports = routes;
 
