@@ -20,27 +20,27 @@ block main
               h5 Giấy A4 IK Plus 70 gsm 
               .inner-quantity 
                 .inner-item 
-                  span Số lượng 
+                  span Mua lẻ (1 tờ) 
                   .inner-counter 
-                    button(type="button")
+                    button(type="button" class="minus1")
                       <svg width="24" height="4" viewBox="0 0 24 4" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M2 2H22" stroke="#C22026" stroke-width="4" stroke-linecap="round"/>
                       </svg>
-                    .inner-number 0
-                    button(type="button") 
+                    .inner-number1 0
+                    button(type="button" class="plus1") 
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 22L12 2" stroke="#C22026" stroke-width="4" stroke-linecap="round"/>
                         <path d="M2 12H22" stroke="#C22026" stroke-width="4" stroke-linecap="round"/>
                       </svg>
                 .inner-item 
-                  span Mua 1 bịch
+                  span Mua 1 bịch (5 tờ)
                   .inner-counter 
-                    button(type="button")
+                    button(type="button" class="minus2")
                       <svg width="24" height="4" viewBox="0 0 24 4" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M2 2H22" stroke="#C22026" stroke-width="4" stroke-linecap="round"/>
                       </svg>
-                    .inner-number 0
-                    button(type="button") 
+                    .inner-number2 0
+                    button(type="button" class="plus2") 
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 22L12 2" stroke="#C22026" stroke-width="4" stroke-linecap="round"/>
                         <path d="M2 12H22" stroke="#C22026" stroke-width="4" stroke-linecap="round"/>
@@ -86,5 +86,11 @@ block main
                 id="agree"
               )
               label(for="agree") Tôi đã đọc và đồng ý với <b>Điều khoản & Điều kiện</b>
-            button(class="btn btn-danger confirm-button") Xác nhận đơn hàng
-            
+            button(type = "button" class="confirm-button") Xác nhận đơn hàng
+        
+  block script
+    script(src="/client/js/print-buy-paper.js")
+
+
+
+

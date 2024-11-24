@@ -82,3 +82,10 @@ module.exports.getPrintInfo = (req,res) => {
   console.log("Số dư tài khoản còn lại :",module.exports.account)
   console.log("Số trang còn lại :",module.exports.numPapers)
 }
+
+//[POST] /print/buy-paper/post-buypaper
+module.exports.postBuypaper = (req, res) => {
+
+  console.log(req.body); // Log dữ liệu gửi lên
+  res.status(200).json({ message: 'Request received!' });
+};

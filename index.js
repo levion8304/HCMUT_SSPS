@@ -5,8 +5,8 @@ const clientRoutes = require("./routes/client/index.route");
 const adminRoutes = require("./routes/admin/index.route");
 
 const app = express();
-// const port = process.env.PORT;
-const port = 3000;
+app.use(express.json());
+const port = process.env.PORT;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
