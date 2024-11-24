@@ -19,7 +19,7 @@ block main
               span Chi phí: <span>3000đ/tờ/màu</span>
           .inner-right-content 
             h5 In đồ án tốt nghiệp
-            form(action="/print/create/get-print-info") 
+            form(action="/print/create/get-print-info" method="POST") 
               .row 
                 .col-6
                   div(class="form-group mb-3")
@@ -111,8 +111,8 @@ block main
                       class="btn submit-button"
                     ) In ấn
                   b Thời gian dự kiến: 24h
-              .error_messages
-              each error_message in error_messages
-                div= error_message 
+              .messages
+              each message in messages
+                div= message 
                     
 

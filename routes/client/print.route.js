@@ -10,7 +10,7 @@ routes.get("/create", controller.create);
 
 routes.get("/buy-paper", controller.buyPaper);
 
-routes.get('/create/get-print-info', controller.getPrintInfo)
+routes.post('/create/get-print-info', controller.getPrintInfo)
 
 routes.post('/buy-paper/post-Buypaper', controller.postBuypaper);
 

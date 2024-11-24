@@ -1,7 +1,7 @@
 //Các thông số fix khi chưa có Database
 module.exports.account = 200000 //Số dư tài khoản SSPS
 module.exports.numPapers = 100 //Số trang in
-
+module.exports.messages = []
 
 // [GET] /print
 module.exports.index = (req, res) => {
@@ -14,7 +14,7 @@ module.exports.index = (req, res) => {
 module.exports.create = (req, res) => {
   res.render("client/pages/print/create.pug", {
     pageTitle: "Trang tạo in ấn",
-    error_messages: []
+    messages: module.exports.messages
   })
 }
 
@@ -25,62 +25,54 @@ module.exports.buyPaper = (req, res) => {
   })
 }
 
-//[GET] /print/create/get-input
+//[POST] /print/create/get-input
 
 module.exports.getPrintInfo = (req,res) => {
-  console.log(req.query);
+  console.log(req.body);
   cost = 0
   page_cost = 0
   num_page = 0
   
   //Get page cost from print type
-  if(req.query.printtype=="In màu"){
+  if(req.body.printtype=="In màu"){
     page_cost = 3000
   }
-  else if(req.query.printtype=="In đen trắng"){
+  else if(req.body.printtype=="In đen trắng"){
     page_cost = 1000
   }
   
   //Get num_page from size, copy and pagenum
-  if(req.query.size=="A0"){
-    num_page = 16*req.query.copy*req.query.pagenum
+  if(req.body.size=="A0"){
+    num_page = 16*req.body.copy*req.body.pagenum
   }
-  else if(req.query.size=="A1"){
-    num_page = 8*req.query.copy*req.query.pagenum
+  else if(req.body.size=="A1"){
+    num_page = 8*req.body.copy*req.body.pagenum
   }
-  else if(req.query.size=="A2"){
-    num_page = 4*req.query.copy*req.query.pagenum
+  else if(req.body.size=="A2"){
+    num_page = 4*req.body.copy*req.body.pagenum
   }
-  else if(req.query.size=="A3"){
-    num_page = 2*req.query.copy*req.query.pagenum
+  else if(req.body.size=="A3"){
+    num_page = 2*req.body.copy*req.body.pagenum
   }
-  else if(req.query.size=="A4"){
-    num_page = 1*req.query.copy*req.query.pagenum
+  else if(req.body.size=="A4"){
+    num_page = 1*req.body.copy*req.body.pagenum
   }
   
   //Caculate cost
   cost = num_page*page_cost
-
+  module.exports.messages = []
   if(num_page>module.exports.numPapers){
-    res.render("client/pages/print/create.pug", {
-        error_messages: ["Không đủ trang để in"]
-      })
+    module.exports.messages.push("Không đủ trang để in")
     }
   else if(cost>module.exports.account){
-    res.render("client/pages/print/create.pug", {
-      error_messages: ["Không đủ tiền để in"]
-      })
+    module.exports.messages.push("Không đủ tiền để in")
     }
   else{
-    module.exports.numPapers = module.exports.numPapers - num_page
-    module.exports.account = module.exports.account - cost
-    res.render("client/pages/print/create.pug", {
-        error_messages: []
-      })
-    }
-  
+    module.exports.messages.push("Đăng ký in hoàn tất")
+  }
   console.log("Số dư tài khoản còn lại :",module.exports.account)
   console.log("Số trang còn lại :",module.exports.numPapers)
+  res.redirect("/print/create")
 }
 
 //[POST] /print/buy-paper/post-buypaper
