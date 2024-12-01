@@ -31,6 +31,16 @@
   font-size: 15px;
 }
 
+.header .header-wrap-1 .header-action .header-login a {
+  color: white;
+  font-weight: 700;
+  font-size: 15px;
+  text-decoration: none;
+}
+.header .header-wrap-1 .header-action .header-login a:hover {
+  text-decoration: underline;
+}
+
 .header .header-wrap-1 .header-action .vertical-divider {
   border: 1px solid var(--color-bg-2);
   height: 40px;
