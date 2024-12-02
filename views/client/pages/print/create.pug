@@ -24,14 +24,9 @@ block main
                 .col-6
                   div(class="form-group mb-3")
                     label(for="type-print") Chọn loại in 
-                    input(
-                      type="text"
-                      class="form-control"
-                      name="type-print"
-                      id="type-print"
-                      placeholder="Chọn loại in"
-                      required
-                    )
+                    select(class="form-select form-select-sm" name="type-print")
+                      option(selected value="blackwhite") In trắng đen
+                      option(value="colored") In màu
                   div(class="form-group mb-3")
                     label(for="quantity-page") Số lượng tờ
                     input(
@@ -73,14 +68,12 @@ block main
                     )
                   div(class="form-group mb-3")
                     label(for="size") Khổ giấy 
-                    input(
-                      type="text"
-                      class="form-control"
-                      placeholder="Vui lòng chọn"
-                      name="size"
-                      id="size"
-                      required
-                    )
+                    select(class="form-select form-select-sm" name="size")
+                      option(value="A0") A0
+                      option(value="A1") A1
+                      option(value="A2") A2
+                      option(value="A3") A3
+                      option(selected value="A4") A4
                   div(class="form-group")
                     label(for="quantity-copy") Số lượng bản in
                     input(
