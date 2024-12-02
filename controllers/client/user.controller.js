@@ -13,7 +13,7 @@ module.exports.login = async (req, res) => {
 
   res.render("client/pages/user/login.pug", {
     pageTitle: "Đăng nhập",
-    noHeader: true
+    noHeader: true,
   });
 };
 
@@ -38,7 +38,12 @@ module.exports.loginPost = async (req, res) => {
   }
 
   res.cookie("token", user.token);
-  res.redirect("/home");
+
+  if (username === "admin") {
+    res.redirect("/admin/dashboard");
+  } else {
+    res.redirect("/home");
+  }
 };
 
 // [GET] /user/signup
@@ -54,7 +59,7 @@ module.exports.signup = async (req, res) => {
 
   res.render("client/pages/user/signup.pug", {
     pageTitle: "Đăng ký",
-    noHeader: true
+    noHeader: true,
   });
 };
 
@@ -82,7 +87,7 @@ module.exports.signupPost = async (req, res) => {
 module.exports.logout = (req, res) => {
   res.clearCookie("token");
   res.redirect("/user/login");
-}
+};
 
 // [GET] /user/log-order
 module.exports.logOrder = (req, res) => {

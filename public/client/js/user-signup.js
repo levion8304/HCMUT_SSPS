@@ -34,7 +34,6 @@ confirmPasswordInput.addEventListener("change", () => {
   sessionStorage.setItem("confirmPassword", confirmPasswordInput.value);
 }); 
 
-const formSignup = document.querySelector("form .button");
-formSignup.addEventListener("click", (e) => {
+window.addEventListener("beforeunload", () => {
   sessionStorage.clear();
 })
