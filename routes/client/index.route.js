@@ -3,6 +3,7 @@ const userRoutes = require("./user.route");
 const aboutRoutes = require("./about.route");
 const productRoutes = require("./product.route");
 const printRoutes = require("./print.route");
+const checkoutRoutes = require("./checkout.route");
 
 const authMiddleware = require("../../middlewares/client/auth.middleware");
 
@@ -12,4 +13,5 @@ module.exports = (app) => {
   app.use("/about", authMiddleware.requireAuth, aboutRoutes);
   app.use("/product", authMiddleware.requireAuth, productRoutes);
   app.use("/print", authMiddleware.requireAuth, printRoutes);
+  app.use("/checkout", authMiddleware.requireAuth, checkoutRoutes);
 };

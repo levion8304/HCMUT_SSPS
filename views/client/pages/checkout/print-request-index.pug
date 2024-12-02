@@ -1,0 +1,63 @@
+extends ../../layouts/default.pug
+
+block style 
+  link(rel="stylesheet", href="/client/css/checkout-print-request-index.css")
+
+block main  
+  .container 
+    .row 
+      .col-12 
+        h2.my-4 Thanh toán 
+    .row 
+      .col-12 
+        .inner-wrap-print-request 
+          .inner-left
+            .inner-filename 
+              | In đồ án tốt nghiệp 
+            .inner-fileimage 
+              img(src="", alt="")
+            .inner-note   
+              | Thời gian dự kiến: 24 giờ
+          .inner-right 
+            .inner-info-section 
+              h6 Sản phẩm - DATN2024 
+              .inner-item 
+                span Loại in: 
+                span In màu 
+              .inner-item 
+                span Tên file:
+                span Đồ án tốt nghiệp 
+              .inner-item 
+                span Số tờ: 
+                span x 30 tờ
+              .inner-item 
+                span Mặt giấy:
+                span 2 mặt
+              .inner-item 
+                span Khổ giấy
+                span A4 
+              .inner-item 
+                span Số lượng bản in
+                span 2 
+              .inner-item 
+                span Máy in
+                span Số 3 - Máy photocopy Ricoh MP 6002
+            .inner-checkout-section
+              .inner-item 
+                span Giá 1 tờ: 
+                span 1,000<sup>đ</sup>
+              .inner-item 
+                span Số tờ:
+                span x 3
+              .inner-item 
+                span Bìa:
+                span 5,000<sup>đ</sup>
+            .inner-total-price-section 
+              .inner-item 
+                span Tổng tiền: 
+                span 8,000<sup>đ</sup>
+            .inner-checkout-button 
+              button(
+                type="button"
+                class="btn"
+              ) Thanh toán
