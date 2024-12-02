@@ -92,6 +92,6 @@ module.exports.logout = (req, res) => {
 // [GET] /user/log-order
 module.exports.logOrder = (req, res) => {
   res.render("client/pages/user/log-order.pug", {
-    pageTitle: "Lịch sử đơn hàng",
+    pageTitle: "Lịch sử đặt in",
   });
 };

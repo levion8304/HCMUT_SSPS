@@ -240,18 +240,22 @@
 }
 
 .sider .sider-info .inner-info {
+  width: 80%;
   flex: 1;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .sider .sider-info .inner-avatar {
   display: flex;
   align-items: center;
   margin-left: 5px;
-  width: fit-content;
+  width: 20%;
+
 }
 
 .sider .sider-info .inner-avatar img {
-  width: 50px;
+  width: 100%;
   aspect-ratio: 1/1;
   border-radius: 50%;
   object-fit: cover;
