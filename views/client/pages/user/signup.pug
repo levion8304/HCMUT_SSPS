@@ -1,9 +1,16 @@
 extends ../../layouts/default.pug
+include ../../mixins/alert.pug
 
 block style 
   link(rel="stylesheet", href="/client/css/user-signup.css")
 
+block script 
+  script(src="/client/js/user-signup.js") 
+
 block main 
+  +alert-success(5000)
+  +alert-error(5000)
+
   .container
     .row.justify-content-center 
       .col-8
@@ -16,6 +23,7 @@ block main
           form(
             action="/user/signup"
             method="POST"
+            enctype="multipart/form-data"
           ) 
               div(class="form-group input-group")
                 label(for="username") 
@@ -35,7 +43,7 @@ block main
                   img(src="/client/images/signup-birthday-icon.svg", alt="")
                 div(class="form-floating")
                   input(
-                    type="text"
+                    type="date"
                     id="birthday"
                     class="form-control"
                     placeholder="Ngày sinh"
@@ -96,20 +104,31 @@ block main
               div(class="form-group input-group")
                 label(for="image-upload")
                   img(src="/client/images/signup-image-icon.svg" alt="")
-                div(class="form-floating")
+                div(
+                  upload-image
+                )
                   input(
-                    type="text"
-                    placeholder="Vui lòng thêm hình ảnh"
-                    class="form-control file-input"
-                    id="image-upload"
+                    type="file"
+                    class="form-control-file"
+                    id="avatar"
+                    name="avatar"
                     accept="image/*"
+                    upload-image-input 
+                    placeholder="Vui lòng thêm hình ảnh"
                   )
-                  label(for="image-upload") Vui lòng thêm hình ảnh
+                  label(for="avatar") Vui lòng chọn hình ảnh
+              img(
+                src=""
+                upload-image-preview
+                class="image-preview"
+              )
+              
               div(class="form-check")
                 input(
                   type="checkbox"
                   class="form-check-input"
                   id="agreement"
+                  required
                 )
                 label(
                   for="agreement"

@@ -4,11 +4,12 @@ const aboutRoutes = require("./about.route");
 const productRoutes = require("./product.route");
 const printRoutes = require("./print.route");
 
-module.exports = (app) => {
-  app.use("/", homeRoutes);
-  app.use("/user", userRoutes);
-  app.use("/about", aboutRoutes);
-  app.use("/product", productRoutes);
-  app.use("/print", printRoutes);
-}
+const authMiddleware = require("../../middlewares/client/auth.middleware");
 
+module.exports = (app) => {
+  app.use("/home", authMiddleware.requireAuth, homeRoutes);
+  app.use("/user", userRoutes);
+  app.use("/about", authMiddleware.requireAuth, aboutRoutes);
+  app.use("/product", authMiddleware.requireAuth, productRoutes);
+  app.use("/print", authMiddleware.requireAuth, printRoutes);
+};
