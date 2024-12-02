@@ -22,6 +22,7 @@ routes.post(
   validate.signupPost,
   controller.signupPost
 );
+routes.get("/logout", controller.logout);
 
 routes.get("/log-order", requireAuth, controller.logOrder);
 

@@ -6,11 +6,25 @@ header.header
           .header-logo  
             img(src="/client/images/logo.png" alt="")
           .header-action 
-            .header-login 
-              span 
-                a(href="/user/login") Đăng nhập
-                | |
-                a(href="/user/signup") Đăng ký 
+            .dropdown
+              button(
+                class="btn dropdown-toggle d-flex align-items-center gap-2" 
+                type="button" 
+                data-bs-toggle="dropdown" 
+                aria-expanded="false"
+              )
+                .header-login 
+                  .inner-avatar 
+                    img(src=user.avatar, alt="")
+                  .inner-name 
+                    span #{user.username}
+              ul.dropdown-menu
+                li
+                  a(class="dropdown-item" href="#") Hồ sơ
+                li
+                  hr(class="dropdown-divider")
+                li
+                  a(class="dropdown-item" href="/user/logout") Đăng xuất
             .vertical-divider 
             .header-cart
               span Giỏ hàng

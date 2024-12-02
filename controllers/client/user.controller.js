@@ -78,6 +78,12 @@ module.exports.signupPost = async (req, res) => {
   }
 };
 
+// [GET] /user/logout
+module.exports.logout = (req, res) => {
+  res.clearCookie("token");
+  res.redirect("/user/login");
+}
+
 // [GET] /user/log-order
 module.exports.logOrder = (req, res) => {
   res.render("client/pages/user/log-order.pug", {
