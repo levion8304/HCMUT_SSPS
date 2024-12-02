@@ -47,19 +47,8 @@ block main
                   required
                 )
               div(class="check-a")
-                div(class="form-check")
-                  input(
-                    type="checkbox"
-                    class="form-check-input"
-                    id="remember"
-                  )
-                  label(
-                    for="remember"
-                    class="form-check-label"
-                  ) Ghi nhớ thông tin
                 div(class="a-options")
-                  a(href="") Quên mật khẩu |
-                  a(href="")  Quên họ tên
+                  a(href="") Quên mật khẩu 
               div(class="form-group")
                 button(
                   type="submit"
@@ -76,6 +65,11 @@ block main
               .inner-icon 
                 img(src="/client/images/twitter-login-icon.svg" alt="")
               .inner-name Twitter
+
+          .inner-signup.mt-4 
+            | Chưa có tài khoản?
+            a(href="/user/signup") Đăng ký
+
 
 
 

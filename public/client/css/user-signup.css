@@ -73,3 +73,10 @@
   font-size: 20px;
 }
 
+.inner-signup .inner-login a {
+  text-decoration: none;
+  margin-left: 5px;
+  color: black;
+  border-bottom: 1px solid #C22026;
+}
+

@@ -25,7 +25,8 @@ html
     
   
   body 
-    include ../partials/header.pug
+    - if (!noHeader)
+      include ../partials/header.pug
 
     .main
       block main

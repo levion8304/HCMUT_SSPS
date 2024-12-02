@@ -2,9 +2,18 @@ const User = require("../../models/user.model");
 const CryptoJS = require("crypto-js");
 
 // [GET] /user/login
-module.exports.login = (req, res) => {
+module.exports.login = async (req, res) => {
+  if (req.cookies.token) {
+    const user = await User.findOne({ token: req.cookies.token });
+    if (user) {
+      res.redirect("/home");
+      return;
+    }
+  }
+
   res.render("client/pages/user/login.pug", {
     pageTitle: "Đăng nhập",
+    noHeader: true
   });
 };
 
@@ -13,8 +22,8 @@ module.exports.loginPost = async (req, res) => {
   const { username, password } = req.body;
 
   const user = await User.findOne({
-    username: username
-  })
+    username: username,
+  });
 
   if (!user) {
     req.flash("error", "Tài khoản không tồn tại!");
@@ -33,9 +42,19 @@ module.exports.loginPost = async (req, res) => {
 };
 
 // [GET] /user/signup
-module.exports.signup = (req, res) => {
+
+module.exports.signup = async (req, res) => {
+  if (req.cookies.token) {
+    const user = await User.findOne({ token: req.cookies.token });
+    if (user) {
+      res.redirect("/home");
+      return;
+    }
+  }
+
   res.render("client/pages/user/signup.pug", {
     pageTitle: "Đăng ký",
+    noHeader: true
   });
 };
 
@@ -43,8 +62,8 @@ module.exports.signup = (req, res) => {
 module.exports.signupPost = async (req, res) => {
   const { password } = req.body;
 
-  const newUser = {...req.body};
-  newUser.password  =  CryptoJS.SHA256(password).toString();
+  const newUser = { ...req.body };
+  newUser.password = CryptoJS.SHA256(password).toString();
 
   try {
     const user = new User(newUser);
