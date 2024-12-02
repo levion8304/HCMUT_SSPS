@@ -7,7 +7,11 @@ const printerRoutes = require("./printer.route");
 const productRoutes = require("./product.route");
 const systemConfig = require("../../config/system");
 
+const { requireAuth } = require("../../middlewares/admin/auth.middleware");
+
 module.exports = (app) => {
+  app.use(requireAuth);
+
   app.use(systemConfig.prefixAdmin + "/dashboard", dashboardRoutes);
   app.use(systemConfig.prefixAdmin + "/account", accountRoutes);
   app.use(systemConfig.prefixAdmin + "/config", configRoutes);
