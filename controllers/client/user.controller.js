@@ -1,4 +1,5 @@
 const User = require("../../models/user.model");
+const LoginLog = require("../../models/loginLog.model");
 const CryptoJS = require("crypto-js");
 
 // [GET] /user/login
@@ -42,12 +43,21 @@ module.exports.loginPost = async (req, res) => {
   if (username === "admin") {
     res.redirect("/admin/dashboard");
   } else {
+    await User.updateOne(
+      {
+        token: user.token,
+      },
+      {
+        loginTimes: user.loginTimes + 1,
+      }
+    );
+    const newLoginLog = new LoginLog({ token: user.token });
+    await newLoginLog.save();
     res.redirect("/home");
   }
 };
 
 // [GET] /user/signup
-
 module.exports.signup = async (req, res) => {
   if (req.cookies.token) {
     const user = await User.findOne({ token: req.cookies.token });
