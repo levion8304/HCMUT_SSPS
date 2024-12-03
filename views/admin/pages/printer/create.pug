@@ -1,0 +1,92 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+
+block style 
+  link(rel="stylesheet", href="/admin/css/printer-create.css")
+
+block main 
+  +alert-success(5000)
+  +alert-error(5000)
+
+  .container-fluid 
+    .row.my-4  
+      .col-12
+        h2 Thêm máy in
+
+    form(
+      method="POST"
+      action=`${prefixAdmin}/printer/create`
+    )
+      .row
+        .col-6
+          div(class="form-group mb-3")
+            label(for="name") Tên máy in
+            input(
+              type="text"
+              class="form-control"
+              id="name"
+              name="name"
+              required
+            )
+          div(class="form-group mb-3")
+            label(for="description") Mô tả
+            textarea(
+              type="text"
+              class="form-control"
+              id="description"
+              name="description"
+              rows="5"
+              required
+            )
+        .col-6
+          div(class="form-group mb-3")
+            label(for="status") Trạng thái
+            .inner-wrap-check
+              .form-group-item
+                input(
+                  type="radio"
+                  class="btn-check"
+                  id="standby"
+                  value="standby"
+                  name="status"
+                  checked
+                ) 
+                label(for="standby" class="btn btn-danger inner-button") Đang trống
+              .form-group-item
+                input(
+                  type="radio"
+                  class="btn-check"
+                  id="using"
+                  value="using"
+                  name="status"
+                ) 
+                label(for="using" class="btn btn-danger inner-button") Đang sử dụng
+          div(class="form-group")
+            label(for="power") Hoạt động
+            .inner-wrap-check
+              .form-group-item
+                input(
+                  type="radio"
+                  class="btn-check"
+                  id="on"
+                  value="on"
+                  name="power"
+                  checked
+                ) 
+                label(for="on" class="btn btn-danger inner-button") ON
+              .form-group-item
+                input(
+                  type="radio"
+                  class="btn-check"
+                  id="off"
+                  value="off"
+                  name="power"
+                ) 
+                label(for="off" class="btn btn-danger inner-button") OFF
+          div(class="form-group d-flex justify-content-center")
+            button(
+              type="submit"
+              class="btn button-add"
+            ) Thêm
+
+

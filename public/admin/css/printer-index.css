@@ -54,6 +54,11 @@
   padding: 5px;
   color: white;
   width: 10%;
+  text-decoration: none;
+}
+
+.inner-actions .inner-button:hover {
+  cursor: pointer;
 }
 
 .inner-statistics .inner-item .inner-number {
@@ -100,6 +105,18 @@
   font-weight: 600;
   width: fit-content;
   margin: 0 auto;
+}
+
+.inner-power {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inner-power .inner-power-list {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .inner-button {
