@@ -36,7 +36,7 @@ module.exports.create = (req, res) => {
 // [POST] /admin/printer/create
 module.exports.createPost = async (req, res) => {
   try {
-    const newPrinter = new Printer(...req.body);
+    const newPrinter = new Printer(req.body);
     await newPrinter.save();
 
     req.flash("success", "Thêm máy in thành công");
