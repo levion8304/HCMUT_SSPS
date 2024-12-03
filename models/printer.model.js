@@ -13,6 +13,7 @@ const printerSchema = new mongoose.Schema(
         paperQuantity: Number,
       },
     ],
+    thumbnail: String,
     deleted: {
       type: Boolean,
       default: false,

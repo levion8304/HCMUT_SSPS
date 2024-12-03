@@ -11,11 +11,11 @@ block main
   .container-fluid 
     .row.my-4  
       .col-12
-        h2 Thêm máy in
+        h2 Cập nhật máy in
 
     form(
       method="POST"
-      action=`${prefixAdmin}/printer/create`
+      action=`${prefixAdmin}/printer/edit/${printer._id}?_method=PATCH`
       enctype="multipart/form-data"
     )
       .row
@@ -27,6 +27,7 @@ block main
               class="form-control"
               id="name"
               name="name"
+              value=printer.name
               required
             )
           div(class="form-group mb-3")
@@ -38,7 +39,7 @@ block main
               name="description"
               rows="5"
               required
-            )
+            ) #{printer.description}
         .col-6
           div(class="form-group mb-3" upload-image)
             label(for="thumbnail") Ảnh sản phẩm
@@ -50,10 +51,9 @@ block main
               accept="image/*"
               upload-image-input 
               placeholder="Vui lòng thêm hình ảnh"
-              required
             )
             img(
-              src=""
+              src=printer.thumbnail || ""
               upload-image-preview
               class="image-preview"
             )
@@ -67,7 +67,7 @@ block main
                   id="standby"
                   value="standby"
                   name="status"
-                  checked
+                  checked=(printer.status == "standby" ? true : false)
                   required
                 ) 
                 label(for="standby" class="btn btn-danger inner-button") Đang trống
@@ -78,6 +78,7 @@ block main
                   id="using"
                   value="using"
                   name="status"
+                  checked=(printer.status == "using" ? true : false)
                   required
                 ) 
                 label(for="using" class="btn btn-danger inner-button") Đang sử dụng
@@ -91,7 +92,7 @@ block main
                   id="on"
                   value="on"
                   name="power"
-                  checked
+                  checked=(printer.power == "on" ? true : false)
                   required
                 ) 
                 label(for="on" class="btn btn-danger inner-button") ON
@@ -102,6 +103,7 @@ block main
                   id="off"
                   value="off"
                   name="power"
+                  checked=(printer.power == "off" ? true : false)
                   required
                 ) 
                 label(for="off" class="btn btn-danger inner-button") OFF
@@ -109,6 +111,6 @@ block main
             button(
               type="submit"
               class="btn button-add"
-            ) Thêm
+            ) Cập nhật
 
 
