@@ -14,9 +14,13 @@ const userSchema = new mongoose.Schema(
     sex: String,
     nationality: String,
     address: String,
+    printPage: {
+      type: Number,
+      default: 50,
+    },
     loginTimes: {
       type: Number,
-      default: 0
+      default: 0,
     },
     token: {
       type: String,
