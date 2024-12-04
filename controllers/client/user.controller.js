@@ -1,5 +1,4 @@
 const User = require("../../models/user.model");
-const LoginLog = require("../../models/loginLog.model");
 const CryptoJS = require("crypto-js");
 
 // [GET] /user/login
@@ -32,7 +31,9 @@ module.exports.loginPost = async (req, res) => {
     return;
   }
 
-  if (CryptoJS.SHA256(password).toString() !== user.password) {
+  var bytes = CryptoJS.AES.decrypt(user.password, 'secretkey');
+  var originalText = bytes.toString(CryptoJS.enc.Utf8);
+  if (originalText !== password) {
     req.flash("error", "Mật khẩu không đúng!");
     res.redirect("back");
     return;
@@ -43,21 +44,12 @@ module.exports.loginPost = async (req, res) => {
   if (username === "admin") {
     res.redirect("/admin/dashboard");
   } else {
-    await User.updateOne(
-      {
-        token: user.token,
-      },
-      {
-        loginTimes: user.loginTimes + 1,
-      }
-    );
-    const newLoginLog = new LoginLog({ token: user.token });
-    await newLoginLog.save();
     res.redirect("/home");
   }
 };
 
 // [GET] /user/signup
+
 module.exports.signup = async (req, res) => {
   if (req.cookies.token) {
     const user = await User.findOne({ token: req.cookies.token });
@@ -78,7 +70,7 @@ module.exports.signupPost = async (req, res) => {
   const { password } = req.body;
 
   const newUser = { ...req.body };
-  newUser.password = CryptoJS.SHA256(password).toString();
+  newUser.password = CryptoJS.AES.encrypt(password, "secretkey").toString();
 
   try {
     const user = new User(newUser);
