@@ -1,3 +1,5 @@
+const Printer = require("../../models/printer.model");
+
 //Các thông số fix khi chưa có Database
 module.exports.account = 200000 //Số dư tài khoản SSPS
 module.exports.numPapers = 100 //Số trang in
@@ -11,10 +13,12 @@ module.exports.index = (req, res) => {
 }
 
 // [GET] /print/create
-module.exports.create = (req, res) => {
+module.exports.create = async (req, res) => {
+  const printers = await Printer.find({ status: "standby" });
   res.render("client/pages/print/create.pug", {
     pageTitle: "Trang tạo in ấn",
-    messages: module.exports.messages
+    messages: module.exports.messages,
+    printers: printers
   })
 }
 
