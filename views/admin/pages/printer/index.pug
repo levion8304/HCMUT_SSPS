@@ -13,17 +13,17 @@ block main
       .col-12 
         .inner-statistics
           .inner-item 
-            .inner-number 15
+            .inner-number #{printers.length}
             .inner-desc Máy
           .inner-item 
-            .inner-number 6
+            .inner-number #{countStandby}
             .inner-desc Trống
           .inner-item 
-            .inner-number 2
-            .inner-desc Lỗi
+            .inner-number #{countOn}
+            .inner-desc Bật
           .inner-item 
-            .inner-number 7
-            .inner-desc Đang hoạt động
+            .inner-number #{countUsing}
+            .inner-desc Đang sử dụng
 
     .row.my-3 
       .col-12 
@@ -75,26 +75,32 @@ block main
                         input(
                           type="radio"
                           class="btn-check"
-                          id="on"
+                          id=("on" + index)
                           name=("power"+index)
                           checked=(printer.power == "on" ? true : false)
+                          readonly
                         ) 
                         label(for="on" class="btn btn-danger inner-button") ON
                       .inner-power-item
                         input(
                           type="radio"
                           class="btn-check"
-                          id="off"
+                          id=("off" + index)
                           name=("power"+index)
                           checked=(printer.power == "off" ? true : false)
+                          readonly
                         ) 
                         label(for="off" class="btn btn-danger inner-button") OFF
                 td
                   .inner-note
-                    a(href="#")
+                    a(href=`${prefixAdmin}/printer/edit/${printer._id}`)
                       img(src="/admin/images/printer-note-icon-1.svg" alt="")
-                    a(href=`/admin/printer/delete/${printer._id}`) 
-                      img(src="/admin/images/printer-note-icon-2.svg" alt="")
+                    form(
+                      method="POST"
+                      action=`${prefixAdmin}/printer/delete/${printer._id}`
+                    )
+                      button(type="submit" class="btn p-0")
+                        img(src="/admin/images/printer-note-icon-2.svg" alt="")
           
           
 
