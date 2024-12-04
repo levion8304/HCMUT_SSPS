@@ -18,46 +18,62 @@ block main
               img(src="", alt="")
             .inner-note   
               | Thời gian dự kiến: 24 giờ
-          .inner-right 
-            .inner-info-section 
-              h6 Sản phẩm - DATN2024 
-              .inner-item 
-                span Loại in: 
-                span In màu 
-              .inner-item 
-                span Tên file:
-                span Đồ án tốt nghiệp 
-              .inner-item 
-                span Số tờ: 
-                span x 30 tờ
-              .inner-item 
-                span Mặt giấy:
-                span 2 mặt
-              .inner-item 
-                span Khổ giấy
-                span A4 
-              .inner-item 
-                span Số lượng bản in
-                span 2 
-              .inner-item 
-                span Máy in
-                span Số 3 - Máy photocopy Ricoh MP 6002
-            .inner-checkout-section
-              .inner-item 
-                span Giá 1 tờ: 
-                span 1,000<sup>đ</sup>
-              .inner-item 
-                span Số tờ:
-                span x 3
-              .inner-item 
-                span Bìa:
-                span 5,000<sup>đ</sup>
-            .inner-total-price-section 
-              .inner-item 
-                span Tổng tiền: 
-                span 8,000<sup>đ</sup>
-            .inner-checkout-button 
-              button(
-                type="button"
-                class="btn"
-              ) Thanh toán
+          .inner-right
+            .print_info
+              .inner-info-section 
+                h6 Sản phẩm - DATN2024 
+                .inner-item 
+                  span Loại in:
+                  case print_info.printtype
+                    when 'blackwhite'
+                      span In trắng đen
+                    when 'colored'
+                      span In màu 
+                .inner-item 
+                  span Tên file:
+                  span Đồ án tốt nghiệp 
+                .inner-item 
+                  span Số tờ: 
+                  span= print_info.pagenum
+                .inner-item 
+                  span Mặt giấy:
+                  case print_info.side
+                    when 'front'
+                      span Mặt trước
+                    when 'back'
+                      span Mặt sau
+                    when 'both'
+                      span 2 mặt
+                .inner-item 
+                  span Khổ giấy
+                  span= print_info.size
+                .inner-item 
+                  span Số lượng bản in
+                  span= print_info.copy
+                .inner-item 
+                  span Máy in
+                  span Số 3 - Máy photocopy Ricoh MP 6002
+              .inner-checkout-section
+                .page_cost
+                  .inner-item 
+                    span Giá 1 tờ A4: 
+                    span= page_cost 
+                    <sup>đ</sup>
+                .num_page  
+                  .inner-item 
+                    span Số tờ A4:
+                    span= num_page  
+                  //- .inner-item 
+                  //-   span Bìa:
+                  //-   span 5,000<sup>đ</sup>
+                .inner-total-price-section
+                  .cost
+                    .inner-item 
+                      span Tổng tiền: 
+                      span= cost
+                      <sup>đ</sup>
+              .inner-checkout-button 
+                button(
+                  type="submit"
+                  class="btn"
+                ) Thanh toán

@@ -34,10 +34,10 @@ module.exports.getPrintInfo = (req,res) => {
   num_page = 0
   
   //Get page cost from print type
-  if(req.body.printtype=="In màu"){
+  if(req.body.printtype=="colored"){
     page_cost = 3000
   }
-  else if(req.body.printtype=="In đen trắng"){
+  else if(req.body.printtype=="blackwhite"){
     page_cost = 1000
   }
   
@@ -63,16 +63,24 @@ module.exports.getPrintInfo = (req,res) => {
   module.exports.messages = []
   if(num_page>module.exports.numPapers){
     module.exports.messages.push("Không đủ trang để in")
+    res.redirect('/print/create')
     }
   else if(cost>module.exports.account){
     module.exports.messages.push("Không đủ tiền để in")
+    res.redirect('/print/create')
     }
   else{
-    module.exports.messages.push("Đăng ký in hoàn tất")
+    console.log("Số dư tài khoản còn lại :",module.exports.account)
+    console.log("Số trang còn lại :",module.exports.numPapers)
+    res.render("client/pages/checkout/print-request-index.pug", {
+      pageTitle: "Thanh toán",
+      print_info: req.body,
+      page_cost: page_cost,
+      num_page: num_page,
+      cost: cost
+    })
   }
-  console.log("Số dư tài khoản còn lại :",module.exports.account)
-  console.log("Số trang còn lại :",module.exports.numPapers)
-  res.redirect("/print/create")
+  
 }
 
 //[POST] /print/buy-paper/post-buypaper
