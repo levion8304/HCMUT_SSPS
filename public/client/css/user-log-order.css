@@ -48,3 +48,34 @@
 .inner-actions .inner-search input::placeholder {
   color: var(--color-bg-1);
 }
+
+/* Pagination */
+.pagination  {
+  align-items: center;
+}
+.page-item:first-child .page-link{
+  border: none;
+  outline: none;
+}
+
+.page-item:last-child .page-link{
+  border: none;
+  outline: none;
+}
+
+.page-number .page-link {
+  border-radius: 5px;
+  color: black;
+  padding: 1.5px 8px;
+  border: 1px solid black;
+}
+
+.page-number .page-link:hover {
+  color: white;
+  background-color: var(--color-bg-1);
+}
+
+.pagination .active .page-link {
+  color: white;
+  background-color: var(--color-bg-1);
+}

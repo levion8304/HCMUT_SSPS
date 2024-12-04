@@ -1,4 +1,5 @@
 const User = require("../../models/user.model");
+const PrintRequest = require("../../models/printRequest.model");
 const CryptoJS = require("crypto-js");
 
 // [GET] /user/login
@@ -31,7 +32,7 @@ module.exports.loginPost = async (req, res) => {
     return;
   }
 
-  var bytes = CryptoJS.AES.decrypt(user.password, 'secretkey');
+  var bytes = CryptoJS.AES.decrypt(user.password, "secretkey");
   var originalText = bytes.toString(CryptoJS.enc.Utf8);
   if (originalText !== password) {
     req.flash("error", "Mật khẩu không đúng!");
@@ -49,7 +50,6 @@ module.exports.loginPost = async (req, res) => {
 };
 
 // [GET] /user/signup
-
 module.exports.signup = async (req, res) => {
   if (req.cookies.token) {
     const user = await User.findOne({ token: req.cookies.token });
@@ -92,8 +92,51 @@ module.exports.logout = (req, res) => {
 };
 
 // [GET] /user/log-order
-module.exports.logOrder = (req, res) => {
+module.exports.logOrder = async (req, res) => {
+  const requests = await PrintRequest.find({ token: req.cookies.token});
+  let printPageSize = [];
+  requests.forEach((request) => {
+    let temp = "";
+    temp += "A0 : " + String(request.stylePaperPrint[0].paperQuantity) + " | ";
+    temp += "A1 : " + String(request.stylePaperPrint[1].paperQuantity) + " | ";
+    temp += "A2 : " + String(request.stylePaperPrint[2].paperQuantity) + " | ";
+    temp += "A3 : " + String(request.stylePaperPrint[3].paperQuantity) + " | ";
+    temp += "A4 : " + String(request.stylePaperPrint[4].paperQuantity);
+    printPageSize.push(temp);
+  });
   res.render("client/pages/user/log-order.pug", {
     pageTitle: "Lịch sử đặt in",
+    requests: requests,
+    printPageSize: printPageSize,
   });
+};
+
+// [GET] /user/my-account
+module.exports.getMyAccount = async (req, res) => {
+  const userInfo = await User.findOne({ token: req.cookies.token });
+  var bytes = CryptoJS.AES.decrypt(userInfo.password, "secretkey");
+  var originalText = bytes.toString(CryptoJS.enc.Utf8);
+  userInfo.password = originalText;
+  
+  res.render("client/pages/user/my-account.pug", {
+    pageTitle: "Hồ sơ tài khoản",
+    userInfo: userInfo
+  });
+};
+
+// [PATCH] /user/my-account/update
+module.exports.update = async (req, res) => {
+  try {
+    const { password } = req.body;
+
+    const newUser = { ...req.body };
+    newUser.password = CryptoJS.AES.encrypt(password, "secretkey").toString();
+    console.log(newUser);
+    await User.updateOne({ token: req.cookies.token }, newUser);
+    req.flash("success", "Cập nhật thành công!");
+    res.redirect("back");
+  } catch (error) {
+    req.flash("error", "Cập nhật thất bại!");
+    res.redirect("back");
+  }
 };

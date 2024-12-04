@@ -2,7 +2,6 @@ const User = require("../../models/user.model");
 
 module.exports.requireAuth = async (req, res, next) => {
   const token = req.cookies.token;
-
   if (!token) {
     res.redirect("/user/login");    
   } else {

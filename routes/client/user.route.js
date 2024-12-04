@@ -25,5 +25,13 @@ routes.post(
 routes.get("/logout", controller.logout);
 
 routes.get("/log-order", requireAuth, controller.logOrder);
+routes.get("/my-account", requireAuth, controller.getMyAccount);
+routes.patch(
+  "/my-account/update",
+  requireAuth,
+  upload.single("avatar"),
+  uploadCloud.upload,
+  controller.update
+);
 
 module.exports = routes;
