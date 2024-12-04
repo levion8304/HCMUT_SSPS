@@ -3,7 +3,7 @@ const User = require("../../models/user.model");
 
 // [GET] /admin/log
 module.exports.index = async (req, res) => {
-  // const users = await User.find({ username: { $ne: "admin" } });
+  const usersTotal = await User.find({ username: { $ne: "admin" } });
 
   const loginLogs = await LoginLog.find({ deleted: false });
   Promise.all(
@@ -12,6 +12,7 @@ module.exports.index = async (req, res) => {
     res.render("admin/pages/log/index.pug", {
       pageTitle: "Trang lịch sử đăng nhập",
       users: users,
+      usersTotal: usersTotal,
       loginLogs: loginLogs,
     });
   });
