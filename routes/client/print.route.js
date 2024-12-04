@@ -10,9 +10,11 @@ routes.get("/create", controller.create);
 
 routes.get("/buy-paper", controller.buyPaper);
 
-routes.post('/create/get-print-info', controller.getPrintInfo)
+routes.post('/create/get-print-info', controller.getPrintInfo);
 
 routes.post('/buy-paper/post-Buypaper', controller.postBuypaper);
+
+routes.post('/create/confirm-print-info', controller.confirmPrint);
 
 module.exports = routes;
 

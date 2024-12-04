@@ -61,7 +61,23 @@ h2 {
 
 .inner-form .inner-right-content h5 {
   position: relative;
-  top: -25px;
+
+}
+
+.inner-form .inner-right-content .inner-print-checkout {
+  margin-top: 20px;
+  border-top: 1px solid var(--color-bg-1);
+}
+.inner-form .inner-right-content .inner-print-checkout .inner-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inner-form .inner-right-content .inner-print-checkout .inner-item:last-child {
+  color: var(--color-bg-1);
+  font-size: 1.1rem;
+  font-weight: 500;
 }
 
 .inner-form .inner-right-content .submit-button {

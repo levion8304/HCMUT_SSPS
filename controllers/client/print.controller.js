@@ -1,10 +1,11 @@
+const Printer = require("../../models/printer.model");
 const User = require("../../models/user.model");
 
 //Các thông số fix khi chưa có Database
-module.exports.account = 200000 //Số dư tài khoản SSPS
-module.exports.numPapers = 100 //Số trang in
 module.exports.messages = []
-
+module.exports.num_page = 0
+module.exports.bonus_price = 0
+module.exports.total_price = 0
 // [GET] /print
 module.exports.index = (req, res) => {
   res.render("client/pages/print/index.pug", {
@@ -13,10 +14,17 @@ module.exports.index = (req, res) => {
 }
 
 // [GET] /print/create
-module.exports.create = (req, res) => {
+module.exports.create = async (req, res) => {
+  await User.updateOne({ token: req.cookies.token }, 
+    {printPage: 100})
+  const printers = await Printer.find({ status: "standby" });
   res.render("client/pages/print/create.pug", {
     pageTitle: "Trang tạo in ấn",
-    messages: module.exports.messages
+    messages: module.exports.messages,
+    printers: printers,
+    num_page: module.exports.num_page,
+    bonus_price: module.exports.bonus_price,
+    total_price: module.exports.total_price,
   })
 }
 
@@ -28,17 +36,18 @@ module.exports.buyPaper = (req, res) => {
 }
 
 //[POST] /print/create/get-input
+
 module.exports.getPrintInfo = (req,res) => {
   console.log(req.body);
   cost = 0
   page_cost = 0
   num_page = 0
-  
+  module.exports.messages = []
   //Get page cost from print type
-  if(req.body.printtype=="In màu"){
+  if(req.body.printtype=="colored"){
     page_cost = 3000
   }
-  else if(req.body.printtype=="In đen trắng"){
+  else if(req.body.printtype=="blackwhite"){
     page_cost = 1000
   }
   
@@ -61,20 +70,38 @@ module.exports.getPrintInfo = (req,res) => {
   
   //Caculate cost
   cost = num_page*page_cost
-  module.exports.messages = []
-  if(num_page>module.exports.numPapers){
-    module.exports.messages.push("Không đủ trang để in")
-    }
-  else if(cost>module.exports.account){
-    module.exports.messages.push("Không đủ tiền để in")
-    }
-  else{
-    module.exports.messages.push("Đăng ký in hoàn tất")
-  }
-  console.log("Số dư tài khoản còn lại :",module.exports.account)
-  console.log("Số trang còn lại :",module.exports.numPapers)
-  res.redirect("/print/create")
+  
+  module.exports.num_page = num_page
+  module.exports.bonus_price = 5000
+  module.exports.total_price = cost + module.exports.bonus_price
+  res.redirect('/print/create')
 }
+
+//[GET] /print/create/confirm-print-info
+module.exports.confirmPrint = async (req,res) => {
+  const slotPrintLeft = await User.findOne({ token: req.cookies.token }).select("printPage");
+  module.exports.messages = []
+  if(module.exports.num_page>slotPrintLeft.printPage){
+    module.exports.messages.push("Không đủ trang để in")
+    req.flash("error", "Tin nhắn")
+    res.redirect('/print/create')
+  }
+  else{
+    await User.updateOne({ token: req.cookies.token }, 
+      {printPage: slotPrintLeft.printPage - module.exports.num_page})
+    console.log("Số trang in A4 còn lại :",slotPrintLeft.printPage)
+    module.exports.num_page = 0
+    module.exports.bonus_price = 0
+    module.exports.total_price = 0
+    req.flash("success", "Tin nhắn")
+    res.redirect('/home')
+  }
+  
+}
+
+
+
+
 
 //[POST] /print/buy-paper/post-buypaper
 // [POST] /print/buy-paper/post-buypaper
