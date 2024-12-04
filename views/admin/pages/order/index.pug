@@ -10,9 +10,11 @@ block main
         li(class="nav-item")
           a(class="nav-link active" href=`${prefixAdmin}/order`) Tất cả đơn đặt in
         li(class="nav-item")
-          a(class="nav-link" href=`${prefixAdmin}/order?result=success`) Đơn in thành công
+          a(class="nav-link" href=`${prefixAdmin}/order?result=printing`) Đang in
         li(class="nav-item")
-          a(class="nav-link" href=`${prefixAdmin}/order?status=error`) Đơn in thất bại
+          a(class="nav-link" href=`${prefixAdmin}/order?result=printed`) Đã in
+        li(class="nav-item")
+          a(class="nav-link" href=`${prefixAdmin}/order?result=failed`) Thất bại
       .inner-actions
         .input-box 
           img(src="/admin/images/order-filter-icon.svg" alt="")
@@ -34,14 +36,14 @@ block main
               th Mã máy in
               th Trạng thái
           tbody.table-group-divider
-            each request in requests 
+            each request, index in requests 
               tr.text-center 
                 td 
                   input(type="checkbox" name="id")
                 td #{request.requestId}
                 td #{request.createdAt.toLocaleString("vi-VN")}
-                td #{request.token}
-                td #{request.stylePaperPrint.join(", ")}
+                td #{users[index].fullname}
+                td #{printPageSize[index]}
                 td 213
                 td #{request.result == "printing" ? "Đang in" : request.result == "printed" ? "Đã in" : "Lỗi"}
             
@@ -65,3 +67,4 @@ block main
               span
                 svg(width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg")
                   path(d="M9 18L15 12L9 6" stroke="#747474" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round")    
+  script(src="/admin/js/order-index.js")   

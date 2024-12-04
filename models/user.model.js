@@ -14,6 +14,10 @@ const userSchema = new mongoose.Schema(
     sex: String,
     nationality: String,
     address: String,
+    deleted: {
+      type: Boolean,
+      default: false,
+    },
     printPage: {
       type: Number,
       default: 50,

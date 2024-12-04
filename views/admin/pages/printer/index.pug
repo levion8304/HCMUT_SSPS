@@ -79,6 +79,7 @@ block main
                           name=("power"+index)
                           checked=(printer.power == "on" ? true : false)
                           readonly
+                          disabled
                         ) 
                         label(for="on" class="btn btn-danger inner-button") ON
                       .inner-power-item
@@ -89,6 +90,7 @@ block main
                           name=("power"+index)
                           checked=(printer.power == "off" ? true : false)
                           readonly
+                          disabled
                         ) 
                         label(for="off" class="btn btn-danger inner-button") OFF
                 td

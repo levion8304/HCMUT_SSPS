@@ -5,14 +5,26 @@ const User = require("../../models/user.model");
 module.exports.index = async (req, res) => {
   // const users = await User.find({ username: { $ne: "admin" } });
 
-  const loginLogs = await LoginLog.find({});
+  const loginLogs = await LoginLog.find({ deleted: false });
   Promise.all(
     loginLogs.map((loginLog) => User.findOne({ token: loginLog.token }))
   ).then((users) => {
     res.render("admin/pages/log/index.pug", {
       pageTitle: "Trang lịch sử đăng nhập",
       users: users,
-      loginLogs: loginLogs
+      loginLogs: loginLogs,
     });
   });
+};
+
+// [POST] /admin/log/delete/:id
+module.exports.deletePost = async (req, res) => {
+  try {
+    await LoginLog.updateOne({ _id: req.params.id }, { deleted: true });
+    req.flash("success", "Xoá thành công");
+    res.redirect("back");
+  } catch (error) {
+    req.flash("error", "Xóa thất bại");
+    res.redirect("back");
+  }
 };

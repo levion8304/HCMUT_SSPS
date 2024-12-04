@@ -52,8 +52,7 @@ block main
         table.table.table-hover.align-middle
           thead 
             tr.text-center 
-              th 
-                input(type="checkbox" name="checkall")
+              th STT
               th Tên tài khoản
               th Mật khẩu 
               th Họ và tên
@@ -62,10 +61,9 @@ block main
               th Số lượt in còn lại
               th Hành động
           tbody
-            each userInfo in users
+            each userInfo, index in users
               tr.text-center 
-                td 
-                  input(type="checkbox" name="id")
+                td #{index + 1}
                 td #{userInfo.username}
                 td #{userInfo.password}
                 td #{userInfo.fullname}

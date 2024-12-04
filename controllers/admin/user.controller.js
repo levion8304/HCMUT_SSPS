@@ -4,7 +4,7 @@ const systemConfig = require("../../config/system");
 
 // [GET] /admin/user
 module.exports.index = async (req, res) => {
-  const users = await User.find({ username: { $ne: "admin" } });
+  const users = await User.find({ username: { $ne: "admin" }, deleted: false });
   users.forEach((user) => {
     var bytes = CryptoJS.AES.decrypt(user.password, "secretkey");
     var originalText = bytes.toString(CryptoJS.enc.Utf8);
@@ -47,5 +47,12 @@ module.exports.editPatch = async (req, res) => {
 
 // [POST] /admin/user/delete/:id
 module.exports.deletePost = async (req, res) => {
-  res.send("OK");
-}
+  try {
+    await User.updateOne({ _id: req.params.id }, { deleted: true });
+    req.flash("success", "Xoá thành công");
+    res.redirect("back");
+  } catch (error) {
+    req.flash("success", "Xóa thất bại");
+    res.redirect("back");
+  }
+};

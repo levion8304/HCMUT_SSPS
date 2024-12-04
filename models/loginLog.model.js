@@ -2,7 +2,11 @@ const mongoose = require("mongoose");
 
 const loginLogSchema = new mongoose.Schema(
   {
-    token: String
+    token: String,
+    deleted: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
