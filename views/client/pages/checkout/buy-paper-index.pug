@@ -26,19 +26,27 @@ block main
                 span Giấy A4
               .inner-item 
                 span Số tờ: 
-                span 50 
+                span #{num1} 
               .inner-item 
-                span Khổ giấy: 
-                span A4
-              .inner-item 
-                span Đơn giá:
+                span Đơn giá: 
                 span 1,000<sup>đ</sup>
+              .inner-item 
+                span Số bịch:
+                span #{num2}
+              .inner-item 
+                span Đơn giá: 
+                span 5,000<sup>đ</sup>
+              .inner-item 
+                span Phương thức thanh toán:
+                span #{payment_method}
             .inner-total-price-section 
               .inner-item 
                 span Tổng tiền: 
-                span 50,000<sup>đ</sup>
-            .inner-checkout-button 
-              button(
-                type="button"
-                class="btn"
-              ) Thanh toán
+                span #{total_price || 0}<sup>đ</sup>
+            form(method="POST", action="/print/buy-paper/post-buypaper")
+              input(type="hidden", name="totalPage", value=`${totalpage}`)
+              .inner-checkout-button 
+                button(
+                  type="submit"
+                  class="btn"
+                ) Thanh toán

@@ -1,3 +1,5 @@
+const User = require("../../models/user.model");
+
 //Các thông số fix khi chưa có Database
 module.exports.account = 200000 //Số dư tài khoản SSPS
 module.exports.numPapers = 100 //Số trang in
@@ -26,7 +28,6 @@ module.exports.buyPaper = (req, res) => {
 }
 
 //[POST] /print/create/get-input
-
 module.exports.getPrintInfo = (req,res) => {
   console.log(req.body);
   cost = 0
@@ -76,8 +77,27 @@ module.exports.getPrintInfo = (req,res) => {
 }
 
 //[POST] /print/buy-paper/post-buypaper
-module.exports.postBuypaper = (req, res) => {
+// [POST] /print/buy-paper/post-buypaper
+module.exports.postBuypaper = async (req, res) => {
+  try {
+    const totalPage = req.body.totalPage; // Lấy từ request body hoặc query
+    if (!totalPage) {
+      req.flash("error", "Thông tin số trang không hợp lệ.");
+      return res.redirect("/checkout/buy-paper");
+    }
 
-  console.log(req.body); // Log dữ liệu gửi lên
-  res.status(200).json({ message: 'Request received!' });
+    const user = await User.findOne({ token: req.cookies.token }).select("printPage");
+
+    user.printPage += parseInt(totalPage, 10); // Cộng số trang mới
+    await user.save(); // Lưu lại thay đổi
+
+    console.log("Số trang in sau update:", user.printPage);
+
+    req.flash("success", `Cập nhật thành công! Số trang in hiện tại: ${user.printPage}`);
+    res.redirect("/home");
+  } catch (error) {
+    console.error("Lỗi trong postBuypaper:", error);
+    req.flash("error", "Có lỗi xảy ra. Vui lòng thử lại.");
+    res.redirect("/checkout/buy-paper");
+  }
 };

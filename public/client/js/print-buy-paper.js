@@ -59,6 +59,8 @@ document.addEventListener("DOMContentLoaded", () => {
   
     const counter2 = document.querySelector(".inner-below");
     const confirmButton = counter2.querySelector(".confirm-button");
+    // const newButton = confirmButton.cloneNode(true); // Tạo một nút mới thay thế nút cũ
+    // confirmButton.replaceWith(newButton);
 
     confirmButton.addEventListener('click', () => {
       // Thu thập thông tin từ form
@@ -70,11 +72,11 @@ document.addEventListener("DOMContentLoaded", () => {
       // Lấy thông tin phương thức thanh toán
       let selectedPayment = null;
       if (document.getElementById("momo").checked) {
-        selectedPayment = ("momo"); // Gán giá trị cụ thể (ví dụ: ID hoặc tên phương thức thanh toán)
+        selectedPayment = ("MOMO"); // Gán giá trị cụ thể (ví dụ: ID hoặc tên phương thức thanh toán)
       } else if (document.getElementById("vnpay").checked) {
-        selectedPayment = ("vnpay");
+        selectedPayment = ("VNPAY");
       } else if (document.getElementById("bkpay").checked) {
-        selectedPayment = ("bkpay");
+        selectedPayment = ("BKPAY");
       }
 
 
@@ -92,42 +94,42 @@ document.addEventListener("DOMContentLoaded", () => {
   
       // Tạo object dữ liệu để gửi
       const requestData = {
+        num1: quantity1,
+        num2: quantity2,
         payment_method: selectedPayment,
         agree_terms: agreeTerms,
         total_price: (quantity1 + quantity2 * 5) * pricePerUnit,
+        totalpage: quantity1 + quantity2 * 5,
       };
       console.log(requestData)
+
+      const queryParams = new URLSearchParams(requestData).toString();
+      window.location.href = '/checkout/buy-paper/?' + queryParams;
+      //  window.location.href = '/checkout/buy-paper/'
   
       // Gửi POST request tới server
-      console.log(JSON.stringify(requestData));
-      fetch('/print/buy-paper/post-Buypaper', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestData),
-      })
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          }
-          throw new Error('Lỗi khi gửi đơn hàng!');
-        })
-        .then((data) => {
-          alert('Đơn hàng của bạn đã được xác nhận!');
-          console.log('Server response:', data);
-          // Xử lý phản hồi từ server tại đây
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-          alert('Có lỗi xảy ra, vui lòng thử lại sau!');
-        });
-
-
-
-
+      // console.log(JSON.stringify(requestData));
+      // fetch('/print/buy-paper/post-Buypaper', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify(requestData),
+      // })
+      // .then((response) => response.json())  // Chắc chắn nhận phản hồi từ server dưới dạng JSON
+      // .then((data) => {
+      //   // Điều hướng đến trang mới nếu thành công
+      //   // alert('Đơn hàng của bạn đã được xác nhận!');
+      //   console.log('Server response:', data);
+      //   // Chuyển hướng tới trang mua giấy
+      //   window.location.href = '/checkout/buy-paper/';  // Hoặc URL mà bạn muốn chuyển hướng đến
+      // })
+      // .catch((error) => {
+      //   console.error('Error:', error);
+      //   alert('Có lỗi xảy ra, vui lòng thử lại sau!');
+      // });
     });
-
+    
 
   });
   
