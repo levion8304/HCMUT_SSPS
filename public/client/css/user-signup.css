@@ -39,6 +39,18 @@
   height: 40px;
 }
 
+.inner-signup .input-group div[upload-image] {
+  padding: 6px 12px;
+}
+
+.inner-signup .input-group div[upload-image] label:hover {
+  cursor: pointer;
+}
+
+.inner-signup .input-group input[upload-image-input] {
+  display: none;
+}
+
 .inner-signup .form-check {
   margin-top: 30px;
   display: flex;
@@ -59,5 +71,12 @@
   border-radius: 20px;
   margin-top: 30px;
   font-size: 20px;
+}
+
+.inner-signup .inner-login a {
+  text-decoration: none;
+  margin-left: 5px;
+  color: black;
+  border-bottom: 1px solid #C22026;
 }
 

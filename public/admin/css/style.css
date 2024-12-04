@@ -6,7 +6,10 @@
 .sider {
   background-color: var(--color-bg-1);
   height: 100vh;
-  position: relative;
+  position: fixed;
+  width: 17%;
+  /* top: 0;
+  left: 0; */
 }
 
 .sider .sider-logo {
@@ -91,6 +94,16 @@
   padding: 8px 15px;
   gap: 15px;
   border-radius: 10px;
+}
+
+.sider .sider-actions .sider-action a {
+  display: flex;
+  align-items: center;
+  color: white;
+  gap: 15px;
+  border-radius: 10px;
+  text-decoration: none;
+  width: 100%;
 }
 
 .sider .sider-actions .sider-action:hover {

@@ -48,7 +48,11 @@
 .inner-login .check-a {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
+}
+
+.inner-login .check-a .form-check :hover {
+  cursor: pointer;
 }
 
 .inner-login .check-a .a-options {
@@ -69,6 +73,14 @@
   padding: 20px 0;
   border-radius: 20px;
   margin-top: 30px;
+  font-size: 22px;
+  font-weight: 500;
+  transition: transform 0.3s ease-in-out;
+}
+
+.inner-login .button:hover {
+  transform: scale(1.03);
+  transition: transform 0.3s ease-in-out;
 }
 
 .inner-login .inner-or {
@@ -119,4 +131,11 @@
   font-size: 20px;
   height: 100%;
   flex: 1;
+}
+
+.inner-login .inner-signup a {
+  text-decoration: none;
+  color: black;
+  margin-left: 10px;
+  border-bottom: 1px solid #C22026;
 }

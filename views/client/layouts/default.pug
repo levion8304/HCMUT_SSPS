@@ -25,7 +25,8 @@ html
     
   
   body 
-    include ../partials/header.pug
+    - if (!noHeader)
+      include ../partials/header.pug
 
     .main
       block main
@@ -44,4 +45,6 @@ html
     ) 
 
     script(src="/client/js/script.js") 
+
+    block script
     
