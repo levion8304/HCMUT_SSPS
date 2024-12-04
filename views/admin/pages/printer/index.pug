@@ -1,25 +1,29 @@
 extends ../../layouts/default.pug
+include ../../mixins/alert.pug
 
 block style 
   link(rel="stylesheet", href="/admin/css/printer-index.css")
 
 block main 
-   .container-fluid 
+  +alert-success(5000)
+  +alert-error(5000)
+
+  .container-fluid 
     .row.my-5
       .col-12 
         .inner-statistics
           .inner-item 
-            .inner-number 15
+            .inner-number #{printers.length}
             .inner-desc Máy
           .inner-item 
-            .inner-number 6
+            .inner-number #{countStandby}
             .inner-desc Trống
           .inner-item 
-            .inner-number 2
-            .inner-desc Lỗi
+            .inner-number #{countOn}
+            .inner-desc Bật
           .inner-item 
-            .inner-number 7
-            .inner-desc Đang hoạt động
+            .inner-number #{countUsing}
+            .inner-desc Đang sử dụng
 
     .row.my-3 
       .col-12 
@@ -34,7 +38,10 @@ block main
             .inner-filter 
               span Dòng máy
               img(src="/admin/images/printer-arrow-down.svg" alt="")
-          .inner-button 
+          a(
+            class="inner-button"
+            href=`${prefixAdmin}/printer/create`
+          )
             img(src="/admin/images/printer-add-icon.svg" alt="")
             | Thêm
 
@@ -50,130 +57,52 @@ block main
               th.col-2 Hoạt động
               th.col-2 Ghi chú
           tbody 
-            tr
-              td.text-center 1
-              td.inner-product 
-                .inner-image  
-                  img(src="https://s3-alpha-sig.figma.com/img/f63d/9a51/9375185f2a611cfc89af00f3d5bcde13?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=kbBNZjdiKGgtziTk15hZuWacNUh5-PUaL2bcq6x7rLNu8v1QGKl1pRuTZthreuzpZy3C5xheITsQUOxXC~UYusSxjW1uzJF2-0QnlYO~3Iqg54hQvSVCzpzVMT1~ff2wFYwH9vssA50M46GujFhpj~Lgd8jX5uchLgmLXNddjOyv4RSNsnd~SRFBa7sv6D6Aih40QR8ovdWf8gg6Z7cgao5Y4hIlvmED8IHUDtgiVbPhiZPrwPqV0aIy5lD-PWfHV8-5xBQTPGef0EGlnWpq6oyknbZytPq~Kc9WsRCR4bzGIECAAzdyBOPxHVLaYnJiQHhOuCZYCg2e6oPIXZcv1A__" alt="")
-                .inner-name 
-                  b Máy photocopy ricoh MP 6054
-              td In hoặc quét với ứng dụng Ricoh Smart Device Print & Scan 
-              td
-                .inner-status Đang sử dụng 
-              td 
-                .inner-power.d-flex.align-items-center.gap-2
-                  input(
-                    type="radio"
-                    class="btn-check"
-                    id="on"
-                    name="power1"
-                    checked
-                  ) 
-                  label(for="on" class="btn btn-danger inner-button") ON
-                  input(
-                    type="radio"
-                    class="btn-check"
-                    id="off"
-                    name="power1"
-                  ) 
-                  label(for="off" class="btn btn-danger inner-button") OFF
-              td
-                .inner-note
-                  img(src="/admin/images/printer-note-icon-1.svg" alt="")
-                  img(src="/admin/images/printer-note-icon-2.svg" alt="")
-            tr
-              td.text-center 2
-              td.inner-product 
-                .inner-image  
-                  img(src="https://s3-alpha-sig.figma.com/img/f63d/9a51/9375185f2a611cfc89af00f3d5bcde13?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=kbBNZjdiKGgtziTk15hZuWacNUh5-PUaL2bcq6x7rLNu8v1QGKl1pRuTZthreuzpZy3C5xheITsQUOxXC~UYusSxjW1uzJF2-0QnlYO~3Iqg54hQvSVCzpzVMT1~ff2wFYwH9vssA50M46GujFhpj~Lgd8jX5uchLgmLXNddjOyv4RSNsnd~SRFBa7sv6D6Aih40QR8ovdWf8gg6Z7cgao5Y4hIlvmED8IHUDtgiVbPhiZPrwPqV0aIy5lD-PWfHV8-5xBQTPGef0EGlnWpq6oyknbZytPq~Kc9WsRCR4bzGIECAAzdyBOPxHVLaYnJiQHhOuCZYCg2e6oPIXZcv1A__" alt="")
-                .inner-name 
-                  b Máy photocopy ricoh MP 6054
-              td In hoặc quét với ứng dụng Ricoh Smart Device Print & Scan 
-              td
-                .inner-status Đang lỗi 
-              td 
-                .inner-power.d-flex.align-items-center.gap-2
-                  input(
-                    type="radio"
-                    class="btn-check"
-                    id="on"
-                    name="power2"
-                  ) 
-                  label(for="on" class="btn btn-danger inner-button") ON
-                  input(
-                    type="radio"
-                    class="btn-check"
-                    id="off"
-                    name="power2"
-                    checked
-                  ) 
-                  label(for="off" class="btn btn-danger inner-button") OFF
-              td
-                .inner-note
-                  img(src="/admin/images/printer-note-icon-1.svg" alt="")
-                  img(src="/admin/images/printer-note-icon-2.svg" alt="")
-            tr
-              td.text-center 3
-              td.inner-product 
-                .inner-image  
-                  img(src="https://s3-alpha-sig.figma.com/img/f63d/9a51/9375185f2a611cfc89af00f3d5bcde13?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=kbBNZjdiKGgtziTk15hZuWacNUh5-PUaL2bcq6x7rLNu8v1QGKl1pRuTZthreuzpZy3C5xheITsQUOxXC~UYusSxjW1uzJF2-0QnlYO~3Iqg54hQvSVCzpzVMT1~ff2wFYwH9vssA50M46GujFhpj~Lgd8jX5uchLgmLXNddjOyv4RSNsnd~SRFBa7sv6D6Aih40QR8ovdWf8gg6Z7cgao5Y4hIlvmED8IHUDtgiVbPhiZPrwPqV0aIy5lD-PWfHV8-5xBQTPGef0EGlnWpq6oyknbZytPq~Kc9WsRCR4bzGIECAAzdyBOPxHVLaYnJiQHhOuCZYCg2e6oPIXZcv1A__" alt="")
-                .inner-name 
-                  b Máy photocopy ricoh MP 6054
-              td In hoặc quét với ứng dụng Ricoh Smart Device Print & Scan 
-              td
-                .inner-status Đang trống 
-              td 
-                .inner-power.d-flex.align-items-center.gap-2
-                  input(
-                    type="radio"
-                    class="btn-check"
-                    id="on"
-                    name="power3"
-                  ) 
-                  label(for="on" class="btn btn-danger inner-button") ON
-                  input(
-                    type="radio"
-                    class="btn-check"
-                    id="off"
-                    name="power3"
-                    checked
-                  ) 
-                  label(for="off" class="btn btn-danger inner-button") OFF
-              td
-                .inner-note
-                  img(src="/admin/images/printer-note-icon-1.svg" alt="")
-                  img(src="/admin/images/printer-note-icon-2.svg" alt="")
-            tr
-              td.text-center 4
-              td.inner-product 
-                .inner-image  
-                  img(src="https://s3-alpha-sig.figma.com/img/f63d/9a51/9375185f2a611cfc89af00f3d5bcde13?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=kbBNZjdiKGgtziTk15hZuWacNUh5-PUaL2bcq6x7rLNu8v1QGKl1pRuTZthreuzpZy3C5xheITsQUOxXC~UYusSxjW1uzJF2-0QnlYO~3Iqg54hQvSVCzpzVMT1~ff2wFYwH9vssA50M46GujFhpj~Lgd8jX5uchLgmLXNddjOyv4RSNsnd~SRFBa7sv6D6Aih40QR8ovdWf8gg6Z7cgao5Y4hIlvmED8IHUDtgiVbPhiZPrwPqV0aIy5lD-PWfHV8-5xBQTPGef0EGlnWpq6oyknbZytPq~Kc9WsRCR4bzGIECAAzdyBOPxHVLaYnJiQHhOuCZYCg2e6oPIXZcv1A__" alt="")
-                .inner-name 
-                  b Máy photocopy ricoh MP 6054
-              td In hoặc quét với ứng dụng Ricoh Smart Device Print & Scan 
-              td
-                .inner-status Đang sử dụng 
-              td 
-                .inner-power.d-flex.align-items-center.gap-2
-                  input(
-                    type="radio"
-                    class="btn-check"
-                    id="on"
-                    name="power4"
-                    checked
-                  ) 
-                  label(for="on" class="btn btn-danger inner-button") ON
-                  input(
-                    type="radio"
-                    class="btn-check"
-                    id="off"
-                    name="power4"
-                  ) 
-                  label(for="off" class="btn btn-danger inner-button") OFF
-              td
-                .inner-note
-                  img(src="/admin/images/printer-note-icon-1.svg" alt="")
-                  img(src="/admin/images/printer-note-icon-2.svg" alt="")
+            each printer, index in printers
+              tr
+                td.text-center #{index + 1}
+                td.inner-product 
+                  .inner-image  
+                    img(src=printer.thumbnail alt="")
+                  .inner-name 
+                    b #{printer.name}
+                td #{printer.description}
+                td
+                  .inner-status #{printer.status == "standby" ? "Đang trống" : "Đang sử dụng"}
+                td 
+                  .inner-power
+                    .inner-power-list 
+                      .inner-power-item
+                        input(
+                          type="radio"
+                          class="btn-check"
+                          id=("on"+index)
+                          name=("power"+index)
+                          checked=(printer.power == "on" ? true : false)
+                          readonly
+                        ) 
+                        label(for="on" class="btn btn-danger inner-button") ON
+                      .inner-power-item
+                        input(
+                          type="radio"
+                          class="btn-check"
+                          id=("off"+index)
+                          name=("power"+index)
+                          checked=(printer.power == "off" ? true : false)
+                          readonly
+                        ) 
+                        label(for="off" class="btn btn-danger inner-button") OFF
+                td
+                  .inner-note
+                    a(href=`${prefixAdmin}/printer/edit/${printer._id}`)
+                      img(src="/admin/images/printer-note-icon-1.svg" alt="")
+                    form(
+                      method="POST"
+                      action=`${prefixAdmin}/printer/delete/${printer._id}`
+                    )
+                      button(type="submit" class="btn p-0")
+                        img(src="/admin/images/printer-note-icon-2.svg" alt="")
+          
+          
 
     .row.my-3.justify-content-center.text-center
       .col-5.d-flex.justify-content-center 
@@ -194,8 +123,6 @@ block main
               span
                 svg(width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg")
                   path(d="M9 18L15 12L9 6" stroke="#747474" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round")
-
-
 
 
 

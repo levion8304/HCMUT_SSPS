@@ -10,13 +10,18 @@ const clientRoutes = require("./routes/client/index.route");
 const adminRoutes = require("./routes/admin/index.route");
 const database = require("./config/database");
 
+const methodOverride = require("method-override");
+
 
 const app = express();
 const port = process.env.PORT;
 
 database.connect();
 
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(methodOverride("_method"));
 
 app.set("views", `${__dirname}/views`);
 app.set("view engine", "pug");

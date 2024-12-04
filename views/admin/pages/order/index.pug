@@ -8,11 +8,13 @@ block main
     .row.mb-5 
       ul(class="nav nav-underline mb-3")
         li(class="nav-item")
-          a(class="nav-link active" href="#") Tất cả đơn hàng
+          a(class="nav-link active" href=`${prefixAdmin}/order`) Tất cả đơn đặt in
         li(class="nav-item")
-          a(class="nav-link" href="#") Chưa thanh toán
+          a(class="nav-link" href=`${prefixAdmin}/order?status=pending`) Đơn đang chờ xử lý
         li(class="nav-item")
-          a(class="nav-link" href="#") Xử lý giao hàng
+          a(class="nav-link" href=`${prefixAdmin}/order?status=confirmed`) Đơn đã xác nhận
+        li(class="nav-item")
+          a(class="nav-link" href=`${prefixAdmin}/order?status=completed`) Đơn đã in
       .inner-actions
         .input-box 
           img(src="/admin/images/order-filter-icon.svg" alt="")
@@ -32,7 +34,7 @@ block main
               th Khách hàng
               th Hoạt động
               th Tiền tổng
-              th Tiến độ
+              th Trạng thái
           tbody.table-group-divider
             tr.text-center 
               td 
@@ -42,7 +44,7 @@ block main
               td Ngọc
               td Đang in
               td 55.000đ
-              td Đã hoàn thành
+              td Đang chờ xác nhận
             tr.text-center 
               td 
                 input(type="checkbox" name="id")
@@ -51,7 +53,7 @@ block main
               td Ngọc
               td Đang in
               td 55.000đ
-              td Đã hoàn thành
+              td Đã xác nhận
             tr.text-center 
               td 
                 input(type="checkbox" name="id")
@@ -60,7 +62,7 @@ block main
               td Ngọc
               td Đang in
               td 55.000đ
-              td Đã hoàn thành
+              td Đã in
             tr.text-center 
               td 
                 input(type="checkbox" name="id")

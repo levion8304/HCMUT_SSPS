@@ -1,14 +1,22 @@
 const mongoose = require("mongoose");
+const { generateTokenString } = require("../helpers/generate");
 
 const printRequestSchema = new mongoose.Schema(
   {
     token: String,
+    requestId: {
+      type: String,
+      default: "ORD" + generateTokenString(20)
+    },
     typePrint: String,
-    pageQuantity: Number,
-    file: File,
-    paperSize: String,
+    stylePaperPrint: [{
+    // file: File,
+      paperSize: String,
+      paperQuantity: Number
+    }],
     printSide: String,
-    printQuantity: Number
+    printQuantity: Number,
+    result: String,
   },
   {
     timestamps: true,

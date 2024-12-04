@@ -1,4 +1,49 @@
 extends ../../layouts/default.pug
 
+block style   
+  link(rel="stylesheet", href="/admin/css/dashboard-index.css")
+
 block main 
-  h1 #{pageTitle}
+  .container-fluid 
+    .row.my-4 
+      .col-12 
+        h2 #{pageTitle}
+
+    .row 
+      .col-12 
+        .inner-overview 
+          h4 Thống kê sơ bộ
+          .inner-statistics
+            .inner-item 
+              .inner-number 5
+              .inner-desc Tổng số người dùng
+            .inner-item 
+              .inner-number 5
+              .inner-desc Số lượt đăng nhập hôm nay
+            .inner-item 
+              .inner-number 0
+              .inner-desc Số lượt đặt in hôm nay
+        .inner-paper 
+          h4 Thống kê lượng giấy 
+          .inner-statistics
+            .inner-item 
+              .inner-number 31
+              .inner-desc Khổ A0
+            .inner-item 
+              .inner-number 12
+              .inner-desc Khổ A1
+            .inner-item 
+              .inner-number 5
+              .inner-desc Khổ A2
+            .inner-item 
+              .inner-number 94
+              .inner-desc Khổ A3
+            .inner-item 
+              .inner-number 654
+              .inner-desc Khổ A4
+          .inner-chart 
+            canvas(id="pieChart")
+            canvas(id="barChart")
+  
+  script(src="https://cdn.jsdelivr.net/npm/chart.js")
+  script(src="/admin/js/dashboard.js") 
