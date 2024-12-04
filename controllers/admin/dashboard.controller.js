@@ -6,7 +6,7 @@ const PrintRequest = require("../../models/printRequest.model");
 module.exports.index = async (req, res) => {
   try {
     const users = await User.find({ username: { $ne: "admin" } });
-    const requests = await PrintRequest.find({ result: "success" });
+    const requests = await PrintRequest.find({ result: "printed" });
 
     const totalUsers = users.length;
     const totalPrinters = await Printer.countDocuments({});

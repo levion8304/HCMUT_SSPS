@@ -1,6 +1,11 @@
 const pieChart = document.getElementById("pieChart");
 const barChart = document.getElementById("barChart");
 
+const numbers = document.querySelectorAll(".inner-paper .inner-item .inner-number");
+let data = [];
+numbers.forEach(number => {
+  data.push(parseInt(number.innerText));
+})
 new Chart(pieChart, {
   type: "doughnut",
   data: {
@@ -8,7 +13,7 @@ new Chart(pieChart, {
     datasets: [
       {
         label: "Số lượng",
-        data: [305, 50, 100, 45, 213],
+        data: data,
         backgroundColor: [
           "rgb(255, 99, 132)",
           "rgb(54, 162, 235)",
@@ -28,7 +33,7 @@ new Chart(barChart, {
     labels: ["A0", "A1", "A2", "A3", "A4"],
     datasets: [{
       label: 'Số lượng',
-      data: [305, 50, 100, 45, 213],
+      data: data,
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(255, 159, 64, 0.2)',
