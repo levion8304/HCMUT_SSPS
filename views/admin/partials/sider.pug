@@ -4,10 +4,10 @@
   .sider-info 
     a(href=`${prefixAdmin}/account`)
       .inner-avatar 
-        img(src="https://s3-alpha-sig.figma.com/img/97bf/de15/5d6381b75d213ee8d8b230a12f2861a6?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=na9f~EvqvRFdZ07~y19746PK~gOWLb6HRrqFQDteV-cyrm647t4wWWIgvoaKaMwwWjKQdghrJ~dZrfmE8E9-RY6UU0ywJTg6AMG-E5FVP7RYJ540txPccNatL2zMuJTGgmZAkomrHx-3TItHFOAtXMUylOWxtv3own7I-ER8Iw5aelFZ4O6hjbIi5ZFxwfAIha5ZhHEMq22yQ5BiKolSSCIs7U5ll5Ct2Uiz3GiG5KKo3Cr-6VJrKwnhNKgQ3VfEo4tis~B64KsbHpuANbJ4Ci0LNnmKPdrn3C9CAnBvxB94cyMGHvb8xnD02inC2PXk2vCMsidx5Mpz6H4f-eqv-A__" alt="")
+        img(src=user.avatar alt="")
       .inner-info 
-        h6 Nguyễn Tất Đạt
-        span tatdat@gmail.com
+        h6 #{user.fullname}
+        span #{user.email}
   ul.sider-menu   
     li.sider-menu-item 
       a(href=`${prefixAdmin}/dashboard`)
@@ -30,15 +30,15 @@
           img(src="/admin/images/sider-menu-icon-4.svg" alt="")
         .inner-title QUẢN LÝ CẤU HÌNH
     li.sider-menu-item 
-      a(href=`${prefixAdmin}/product`)
+      a(href=`${prefixAdmin}/user`)
         .inner-icon 
           img(src="/admin/images/sider-menu-icon-5.svg" alt="")
-        .inner-title QUẢN LÝ SẢN PHẨM
+        .inner-title QUẢN LÝ TÀI KHOẢN
     li.sider-menu-item 
       a(href=`${prefixAdmin}/order`)
         .inner-icon 
           img(src="/admin/images/sider-menu-icon-6.svg" alt="")
-        .inner-title QUẢN LÝ ĐƠN HÀNG
+        .inner-title QUẢN LÝ ĐƠN ĐẶT IN
   
   ul.sider-actions 
     li.sider-action 

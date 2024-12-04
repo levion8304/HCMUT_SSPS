@@ -8,11 +8,11 @@ block main
     .row.mb-5 
       ul(class="nav nav-underline mb-3")
         li(class="nav-item")
-          a(class="nav-link active" href="#") Tất cả đơn hàng
+          a(class="nav-link active" href=`${prefixAdmin}/order`) Tất cả đơn đặt in
         li(class="nav-item")
-          a(class="nav-link" href="#") Chưa thanh toán
+          a(class="nav-link" href=`${prefixAdmin}/order?result=success`) Đơn in thành công
         li(class="nav-item")
-          a(class="nav-link" href="#") Xử lý giao hàng
+          a(class="nav-link" href=`${prefixAdmin}/order?status=error`) Đơn in thất bại
       .inner-actions
         .input-box 
           img(src="/admin/images/order-filter-icon.svg" alt="")
@@ -29,74 +29,22 @@ block main
                 input(type="checkbox" name="checkall")
               th Mã
               th Ngày tạo
-              th Khách hàng
-              th Hoạt động
-              th Tiền tổng
-              th Tiến độ
+              th Người dùng
+              th Khố in
+              th Mã máy in
+              th Trạng thái
           tbody.table-group-divider
-            tr.text-center 
-              td 
-                input(type="checkbox" name="id")
-              td #M103578
-              td 01/10/2024 16:30
-              td Ngọc
-              td Đang in
-              td 55.000đ
-              td Đã hoàn thành
-            tr.text-center 
-              td 
-                input(type="checkbox" name="id")
-              td #M103578
-              td 01/10/2024 16:30
-              td Ngọc
-              td Đang in
-              td 55.000đ
-              td Đã hoàn thành
-            tr.text-center 
-              td 
-                input(type="checkbox" name="id")
-              td #M103578
-              td 01/10/2024 16:30
-              td Ngọc
-              td Đang in
-              td 55.000đ
-              td Đã hoàn thành
-            tr.text-center 
-              td 
-                input(type="checkbox" name="id")
-              td #M103578
-              td 01/10/2024 16:30
-              td Ngọc
-              td Đang in
-              td 55.000đ
-              td Đã hoàn thành
-            tr.text-center 
-              td 
-                input(type="checkbox" name="id")
-              td #M103578
-              td 01/10/2024 16:30
-              td Ngọc
-              td Đang in
-              td 55.000đ
-              td Đã hoàn thành
-            tr.text-center 
-              td 
-                input(type="checkbox" name="id")
-              td #M103578
-              td 01/10/2024 16:30
-              td Ngọc
-              td Đang in
-              td 55.000đ
-              td Đã hoàn thành
-            tr.text-center 
-              td 
-                input(type="checkbox" name="id")
-              td #M103578
-              td 01/10/2024 16:30
-              td Ngọc
-              td Đang in
-              td 55.000đ
-              td Đã hoàn thành
+            each request in requests 
+              tr.text-center 
+                td 
+                  input(type="checkbox" name="id")
+                td #{request.requestId}
+                td #{request.createdAt.toLocaleString("vi-VN")}
+                td #{request.token}
+                td #{request.stylePaperPrint.join(", ")}
+                td 213
+                td #{request.result == "printing" ? "Đang in" : request.result == "printed" ? "Đã in" : "Lỗi"}
+            
                                 
     .row.mt-5.justify-content-center.text-center
       .col-5.d-flex.justify-content-center 

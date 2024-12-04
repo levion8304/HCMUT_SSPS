@@ -31,7 +31,9 @@ module.exports.loginPost = async (req, res) => {
     return;
   }
 
-  if (CryptoJS.SHA256(password).toString() !== user.password) {
+  var bytes = CryptoJS.AES.decrypt(user.password, 'secretkey');
+  var originalText = bytes.toString(CryptoJS.enc.Utf8);
+  if (originalText !== password) {
     req.flash("error", "Mật khẩu không đúng!");
     res.redirect("back");
     return;
@@ -68,7 +70,7 @@ module.exports.signupPost = async (req, res) => {
   const { password } = req.body;
 
   const newUser = { ...req.body };
-  newUser.password = CryptoJS.SHA256(password).toString();
+  newUser.password = CryptoJS.AES.encrypt(password, "secretkey").toString();
 
   try {
     const user = new User(newUser);
@@ -92,6 +94,6 @@ module.exports.logout = (req, res) => {
 // [GET] /user/log-order
 module.exports.logOrder = (req, res) => {
   res.render("client/pages/user/log-order.pug", {
-    pageTitle: "Lịch sử đơn hàng",
+    pageTitle: "Lịch sử đặt in",
   });
 };

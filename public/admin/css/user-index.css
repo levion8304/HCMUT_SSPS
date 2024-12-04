@@ -48,6 +48,21 @@
   background: #ddd;
 }
 
+.inner-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.inner-note img {
+  transition: transform 0.3s ease-in-out;
+}
+
+.inner-note img:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease-in-out;
+}
 
 /* Pagination */
 .pagination  {
