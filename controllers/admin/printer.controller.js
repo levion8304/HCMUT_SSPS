@@ -23,6 +23,17 @@ module.exports.index = async (req, res) => {
     }
   }
 
+  let printPapers = [];
+  printers.forEach((printer) => {
+    let temp = "";
+    temp += "A0 : " + String(printer.printPapers[0].paperQuantity) + " | ";
+    temp += "A1 : " + String(printer.printPapers[1].paperQuantity) + " | ";
+    temp += "A2 : " + String(printer.printPapers[2].paperQuantity) + " | ";
+    temp += "A3 : " + String(printer.printPapers[3].paperQuantity) + " | ";
+    temp += "A4 : " + String(printer.printPapers[4].paperQuantity);
+    printPapers.push(temp);
+  });
+
   res.render("admin/pages/printer/index.pug", {
     pageTitle: "Trang quản lý máy in",
     printers: printersPage,
@@ -30,7 +41,9 @@ module.exports.index = async (req, res) => {
     totalPages: totalPages,
     countStandby: countStandby,
     countOn: countOn,
-    countUsing: countUsing
+    countUsing: countUsing,
+    printerCount: printers.length,
+    printPapers : printPapers
   });
 };
 

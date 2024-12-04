@@ -11,6 +11,30 @@ module.exports.index = async (req, res) => {
     .skip((page - 1) * 20)
     .limit(20);
 
+  let todayLoginCount = 0;
+  let inMonthLoginCount = 0;
+  loginLogs.forEach((loginLog) => {
+    const dateString = loginLog.createdAt;
+
+    const date = new Date(dateString);
+    const today = new Date();
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    if (
+      day == today.getDate() &&
+      month == today.getMonth() + 1 &&
+      year == today.getFullYear()
+    ) {
+      todayLoginCount++;
+    }
+    if (month == today.getMonth() + 1 && year == today.getFullYear()) {
+      inMonthLoginCount++;
+    }
+  });
+
+  // console.log(day, month, year);
+
   const totalPages = Math.ceil(loginLogs.length / 20);
 
   Promise.all(
@@ -22,7 +46,9 @@ module.exports.index = async (req, res) => {
       usersTotal: usersTotal,
       loginLogs: loginLogs,
       page: page,
-      totalPages: totalPages
+      totalPages: totalPages,
+      todayLoginCount: todayLoginCount,
+      inMonthLoginCount: inMonthLoginCount,
     });
   });
 };

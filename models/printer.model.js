@@ -6,13 +6,14 @@ const printerSchema = new mongoose.Schema(
     description: String,
     status: String,
     power: String,
-    paper: [
+    printPapers: [
       {
         // file: File,
         paperSize: String,
         paperQuantity: Number,
       },
     ],
+    location: String,
     thumbnail: String,
     deleted: {
       type: Boolean,
