@@ -18,9 +18,9 @@ block main
               span Chi phí: <span>1000đ/tờ/đen trắng</span>
               span Chi phí: <span>3000đ/tờ/màu</span>
           .inner-right-content 
-            form(action="/print/create/get-print-info" method="POST") 
-              .inner-print-info
-                h5 Thông tin tạo in
+            .inner-print-info
+              h5 Thông tin tạo in
+              form(action="/print/create/get-print-info" method="POST")
                 .row 
                   .col-6
                     div(class="form-group mb-3")
@@ -39,8 +39,8 @@ block main
                         required
                       )
                     div(class="form-group mb-3")
-                      label(for="printtype") Chọn máy in 
-                      select(class="form-select form-select-sm" name="printtype")
+                      label(for="print-machine") Chọn máy in 
+                      select(class="form-select form-select-sm" name="print-machine")
                         option(selected disabled) -- Chọn máy in --
                         each printer in printers
                           option(value=printer._id) #{printer.name}
@@ -106,28 +106,38 @@ block main
                 .messages
                 each message in messages
                   div= message 
-              .inner-print-checkout 
-                .row 
-                  .col-12 
-                    h5.mt-2 Thanh toán  
-                    .inner-item 
-                      span Số lượt in đã dùng: 
-                      span 5
-                    .inner-item 
-                      span Giá bìa tổng: 
-                      span #{(5000).toLocaleString("vi-VN")}<sup>đ</sup> 
-                    .inner-item 
-                      span Tổng tiền: 
-                      span #{(10000).toLocaleString("vi-VN")}<sup>đ</sup> 
-              .inner-print-button
-                .row.text-center
-                  .col-12
+                .col-12
                     div(class="form-group d-flex justify-content-center mt-4 mb-3")
                       button(
                         type="submit"
                         class="btn submit-button"
-                      ) In ấn
-                    b Thời gian dự kiến: 24h
+                      ) Tạo in ấn
+              form(action="/print/create/confirm-print-info" method="POST")
+                .inner-print-checkout 
+                  .row 
+                    .col-12 
+                      h5.mt-2 Thanh toán
+                      .inner-item 
+                        span Số lượt in đã dùng:
+                        .num_page
+                          span= num_page
+                      .inner-item 
+                        span Giá bìa tổng:
+                        .bonus_price
+                          span #{(bonus_price).toLocaleString("vi-VN")}<sup>đ</sup>
+                      .inner-item 
+                        span Tổng tiền:
+                        .total_price
+                          span #{(total_price).toLocaleString("vi-VN")}<sup>đ</sup> 
+                .inner-print-button
+                  .row.text-center
+                    .col-12
+                      div(class="form-group d-flex justify-content-center mt-4 mb-3")
+                        button(
+                          type="submit"
+                          class="btn submit-button"
+                        ) In ấn
+                      b Thời gian dự kiến: 24h
 
 
 
