@@ -3,12 +3,23 @@ const User = require("../../models/user.model");
 
 // [GET] /admin/order
 module.exports.index = async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
   let requests = null;
+  let totalPages = 0;
   if (req.query.result) {
     requests = await Request.find({ result: req.query.result });
+    totalPages = Math.ceil(requests.length / 20);
+    requests = await Request.find({ result: req.query.result })
+      .skip((page - 1) * 20)
+      .limit(20);
   } else {
     requests = await Request.find({});
+    totalPages = Math.ceil(requests.length / 20);
+    requests = await Request.find({})
+      .skip((page - 1) * 20)
+      .limit(20);
   }
+
   let printPageSize = [];
   requests.forEach((request) => {
     let temp = "";
@@ -27,6 +38,8 @@ module.exports.index = async (req, res) => {
       requests: requests,
       users: users,
       printPageSize: printPageSize,
+      page: page,
+      totalPages: totalPages,
     });
   });
 };

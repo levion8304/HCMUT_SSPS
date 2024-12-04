@@ -59,7 +59,7 @@ block main
           tbody 
             each printer, index in printers
               tr
-                td.text-center #{index + 1}
+                td.text-center #{(page - 1) * 5 + index + 1}
                 td.inner-product 
                   .inner-image  
                     img(src=printer.thumbnail alt="")
@@ -110,18 +110,15 @@ block main
       .col-5.d-flex.justify-content-center 
         ul.pagination.gap-3
           li.page-item
-            a.page-link(href="#")
+            a.page-link(href=`${prefixAdmin}/printer?page=${page > 1 ? page - 1 : 1}`)
               span 
                 svg(width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg")
                   path(d="M15 18L9 12L15 6" stroke="#747474" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round")
-          li.page-item.active.page-number
-            a.page-link(href=`${prefixAdmin}/printer?page=1`) 1
-          li.page-item.page-number 
-            a.page-link(href=`${prefixAdmin}/printer?page=2`) 2
-          li.page-item.page-number 
-            a.page-link(href=`${prefixAdmin}/printer?page=3`) 3
+          each page, index in [...Array(totalPages)]
+            li.page-item.page-number
+              a.page-link(href=`${prefixAdmin}/printer?page=${index + 1}`) #{index + 1}
           li.page-item
-            a.page-link(href="#")
+            a.page-link(href=`${prefixAdmin}/printer?page=${page < totalPages ? page + 1 : page}`)
               span
                 svg(width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg")
                   path(d="M9 18L15 12L9 6" stroke="#747474" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round")

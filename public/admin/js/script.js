@@ -34,3 +34,12 @@ window.addEventListener("load", () => {
     loading.style.display = "none";
   }, 1000);
 });
+
+// Pagination
+const pageItems = document.querySelectorAll(".pagination .page-item");
+
+const page = parseInt(new URL(window.location.href).searchParams.get("page"));
+
+pageItems[page].classList.add("active");
+
+

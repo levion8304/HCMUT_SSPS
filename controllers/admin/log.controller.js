@@ -3,9 +3,16 @@ const User = require("../../models/user.model");
 
 // [GET] /admin/log
 module.exports.index = async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+
   const usersTotal = await User.find({ username: { $ne: "admin" } });
 
-  const loginLogs = await LoginLog.find({ deleted: false });
+  const loginLogs = await LoginLog.find({ deleted: false })
+    .skip((page - 1) * 20)
+    .limit(20);
+
+  const totalPages = Math.ceil(loginLogs.length / 20);
+
   Promise.all(
     loginLogs.map((loginLog) => User.findOne({ token: loginLog.token }))
   ).then((users) => {
@@ -14,6 +21,8 @@ module.exports.index = async (req, res) => {
       users: users,
       usersTotal: usersTotal,
       loginLogs: loginLogs,
+      page: page,
+      totalPages: totalPages
     });
   });
 };

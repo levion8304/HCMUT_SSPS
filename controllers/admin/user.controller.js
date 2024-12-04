@@ -4,7 +4,13 @@ const systemConfig = require("../../config/system");
 
 // [GET] /admin/user
 module.exports.index = async (req, res) => {
-  const users = await User.find({ username: { $ne: "admin" }, deleted: false });
+  const page = parseInt(req.query.page) || 1;
+  let users = await User.find({ username: { $ne: "admin" }, deleted: false });
+
+  const totalPages = Math.ceil(users.length / 20);
+  
+  users = await User.find({ username: { $ne: "admin" }, deleted: false }).skip((page - 1) * 20).limit(20);
+
   users.forEach((user) => {
     var bytes = CryptoJS.AES.decrypt(user.password, "secretkey");
     var originalText = bytes.toString(CryptoJS.enc.Utf8);
@@ -13,6 +19,8 @@ module.exports.index = async (req, res) => {
   res.render("admin/pages/user/index.pug", {
     pageTitle: "Quản lí tài khoản",
     users: users,
+    page: page,
+    totalPages: totalPages,
   });
 };
 

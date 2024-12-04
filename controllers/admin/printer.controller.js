@@ -3,7 +3,13 @@ const systemConfig = require("../../config/system");
 
 // [GET] /admin/printer
 module.exports.index = async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+
+  const printersPage = await Printer.find({ deleted: false }).skip((page - 1) * 5).limit(5);
+
   const printers = await Printer.find({ deleted: false });
+
+  const totalPages = Math.ceil(printers.length / 5);
 
   let countStandby = 0, countOn = 0, countUsing = 0;
   for (const printer of printers) {
@@ -19,7 +25,9 @@ module.exports.index = async (req, res) => {
 
   res.render("admin/pages/printer/index.pug", {
     pageTitle: "Trang quản lý máy in",
-    printers: printers,
+    printers: printersPage,
+    page: page,
+    totalPages: totalPages,
     countStandby: countStandby,
     countOn: countOn,
     countUsing: countUsing
