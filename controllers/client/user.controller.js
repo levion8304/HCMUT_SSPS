@@ -1,5 +1,6 @@
 const User = require("../../models/user.model");
 const PrintRequest = require("../../models/printRequest.model");
+const LoginLog = require("../../models/loginLog.model");
 const CryptoJS = require("crypto-js");
 
 // [GET] /user/login
@@ -24,6 +25,7 @@ module.exports.loginPost = async (req, res) => {
 
   const user = await User.findOne({
     username: username,
+    deleted: false,
   });
 
   if (!user) {
@@ -45,6 +47,12 @@ module.exports.loginPost = async (req, res) => {
   if (username === "admin") {
     res.redirect("/admin/dashboard");
   } else {
+    await User.updateOne(
+      { token: user.token },
+      { loginTimes: user.loginTimes + 1 }
+    );
+    const newLoginLog = new LoginLog({ token: user.token });
+    await newLoginLog.save();
     res.redirect("/home");
   }
 };
@@ -93,7 +101,7 @@ module.exports.logout = (req, res) => {
 
 // [GET] /user/log-order
 module.exports.logOrder = async (req, res) => {
-  const requests = await PrintRequest.find({ token: req.cookies.token});
+  const requests = await PrintRequest.find({ token: req.cookies.token });
   let printPageSize = [];
   requests.forEach((request) => {
     let temp = "";
@@ -117,10 +125,10 @@ module.exports.getMyAccount = async (req, res) => {
   var bytes = CryptoJS.AES.decrypt(userInfo.password, "secretkey");
   var originalText = bytes.toString(CryptoJS.enc.Utf8);
   userInfo.password = originalText;
-  
+
   res.render("client/pages/user/my-account.pug", {
     pageTitle: "Hồ sơ tài khoản",
-    userInfo: userInfo
+    userInfo: userInfo,
   });
 };
 
