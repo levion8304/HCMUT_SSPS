@@ -38,7 +38,7 @@ window.addEventListener("load", () => {
 // Pagination
 const pageItems = document.querySelectorAll(".pagination .page-item");
 
-if (pageItems) {
+if (pageItems && pageItems.length) {
   const page = parseInt(new URL(window.location.href).searchParams.get("page"));
   pageItems[page].classList.add("active");
 
@@ -64,3 +64,36 @@ if (pageItems) {
     window.location.href = url.href;
   });
 }
+
+// Sider
+const siderMenuItems = document.querySelectorAll(".sider-menu-item");
+const pathname = new URL(window.location.href).pathname;
+
+switch (pathname) {
+  case `${prefixAdmin}/account`:
+    const userItem = document.querySelector(".sider-info");
+    userItem.classList.add("sider-info-active");
+    break;
+  case `${prefixAdmin}/dashboard`:
+    siderMenuItems[0].classList.add("sider-menu-active");
+    break;
+  case `${prefixAdmin}/log`:
+    siderMenuItems[1].classList.add("sider-menu-active");
+    break;
+  case `${prefixAdmin}/printer`:
+    siderMenuItems[2].classList.add("sider-menu-active");
+    break;
+  case `${prefixAdmin}/config`:
+    siderMenuItems[3].classList.add("sider-menu-active");
+    break;
+  case `${prefixAdmin}/user`:
+    siderMenuItems[4].classList.add("sider-menu-active");
+    break;
+  case `${prefixAdmin}/order`:
+    siderMenuItems[5].classList.add("sider-menu-active");
+    break;
+  default:
+    break;
+}
+
+// End Sider

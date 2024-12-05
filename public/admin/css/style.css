@@ -42,6 +42,10 @@
   cursor: pointer;
 }
 
+.sider .sider-info-active {
+  background: #ECB1B34F;
+}
+
 .sider .sider-info .inner-avatar {
   display: flex;
   align-items: center;

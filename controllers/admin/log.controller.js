@@ -49,10 +49,10 @@ module.exports.index = async (req, res) => {
     result = loginLogs;
   }
 
-  result = result.slice((page - 1) * 20 , page * 20  );
-
   const totalPages = Math.ceil(result.length / 20);
 
+  result = result.slice((page - 1) * 20 , page * 20 );
+  
   Promise.all(
     result.map((loginLog) => User.findOne({ token: loginLog.token }))
   ).then((users) => {
