@@ -1,6 +1,7 @@
 const User = require("../../models/user.model");
 const PrintRequest = require("../../models/printRequest.model");
 const LoginLog = require("../../models/loginLog.model");
+const Printer = require("../../models/printer.model");
 const CryptoJS = require("crypto-js");
 
 // [GET] /user/login
@@ -112,10 +113,15 @@ module.exports.logOrder = async (req, res) => {
     temp += "A4 : " + String(request.stylePaperPrint[4].paperQuantity);
     printPageSize.push(temp);
   });
-  res.render("client/pages/user/log-order.pug", {
-    pageTitle: "Lịch sử đặt in",
-    requests: requests,
-    printPageSize: printPageSize,
+  Promise.all(
+    requests.map((request) => Printer.findOne({ _id: request.printerId }))
+  ).then((printers) => {
+    res.render("client/pages/user/log-order.pug", {
+      pageTitle: "Lịch sử đặt in",
+      requests: requests,
+      printPageSize: printPageSize,
+      printers: printers,
+    });
   });
 };
 

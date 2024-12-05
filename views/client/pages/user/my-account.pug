@@ -106,26 +106,29 @@ block main
         .col-5
           h4 Thông tin tài khoản
           .inner-right-wrap 
-            div(class="form-group mb-3")
-              label(for="username") Username
-              input(
-                type="text"
-                class="form-control"
-                id="username"
-                name="username"
-                value=userInfo.username
-                disabled
-              )
-            div(class="form-group mb-3")
-              label(for="password") Mật khẩu
-              input(
-                type="password"
-                class="form-control"
-                id="password"
-                name="password"
-                value=userInfo.password
-                disabled
-              )
+            .row 
+              .col-6
+                div(class="form-group mb-3")
+                  label(for="username") Username
+                  input(
+                    type="text"
+                    class="form-control"
+                    id="username"
+                    name="username"
+                    value=userInfo.username
+                    disabled
+                  )
+              .col-6
+                div(class="form-group mb-3")
+                  label(for="password") Mật khẩu
+                  input(
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    name="password"
+                    value=userInfo.password
+                    disabled
+                  )
             div(class="form-group mb-3")
               label(for="email") Email
               input(
@@ -136,7 +139,7 @@ block main
                 value=userInfo.email
                 disabled
               )
-            div(class="form-group" upload-image)
+            div(class="form-group mb-3" upload-image)
               label(for="avatar") Ảnh đại diện
               input(
                 type="file"
@@ -153,7 +156,28 @@ block main
                 upload-image-preview
                 class="image-preview"
               )
-      .row 
+            .row 
+              .col-4
+                div(class="form-group")
+                  label(for="email") Số lượt in còn lại
+                  input(
+                    type="text"
+                    class="form-control no-focus"
+                    id="email"
+                    value=userInfo.printPage
+                    readonly
+                  )
+              .col-4
+                div(class="form-group")
+                  label(for="login-times") Số lượt đăng nhập
+                  input(
+                    type="text"
+                    class="form-control no-focus"
+                    id="login-times"
+                    value=userInfo.loginTimes
+                    readonly
+                  )
+      .row.justify-content-center 
         .col-5 
           div(class="form-group")
             .inner-button 

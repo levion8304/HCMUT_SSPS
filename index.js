@@ -36,6 +36,10 @@ app.use(flash());
 clientRoutes(app);
 adminRoutes(app);
 
+app.use("*", (req, res) => {
+  res.send("404 NOT FOUND")
+});
+
 // App locals variables
 const systemConfig = require("./config/system");
 app.locals.prefixAdmin = systemConfig.prefixAdmin;

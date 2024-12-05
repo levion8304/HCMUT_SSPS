@@ -5,14 +5,13 @@ const PrintRequest = require("../../models/printRequest.model");
 // [GET] /print
 module.exports.index = (req, res) => {
   res.render("client/pages/print/index.pug", {
-    pageTitle: "Trang in ấn",
+    pageTitle: "Tạo in ấn",
   });
 };
 
 // [GET] /print/create
 module.exports.create = async (req, res) => {
-  await User.updateOne({ token: req.cookies.token }, { printPage: 100 });
-  const printers = await Printer.find({ status: "standby" });
+  const printers = await Printer.find({ status: "standby", power: "on" });
   res.render("client/pages/print/create.pug", {
     pageTitle: "Trang tạo in ấn",
     printers: printers,
@@ -25,7 +24,7 @@ module.exports.create = async (req, res) => {
 // [GET] /print/buy-paper
 module.exports.buyPaper = (req, res) => {
   res.render("client/pages/print/buy-paper.pug", {
-    pageTitle: "Mua giấy",
+    pageTitle: "Mua lượt in",
   });
 };
 
@@ -107,6 +106,15 @@ module.exports.createPost = async (req, res) => {
     });
 
     await newPrintRequest.save();
+
+    await Printer.updateOne(
+      {
+        _id: printerId,
+      },
+      {
+        status: "using",
+      }
+    );
 
     req.flash("success", "Tạo in thành công!");
     res.redirect("/home");

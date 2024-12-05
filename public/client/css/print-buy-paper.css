@@ -80,6 +80,7 @@ h5 span {
   background: #E6EAEE;
   border-radius: 30px;
   overflow: hidden;
+  font-size: 18px;
 }
 
 .inner-wrap .inner-above .inner-content .inner-quantity .inner-item .inner-counter button {
@@ -126,4 +127,20 @@ h5 span {
   border-radius: 20px;
   color: white;
   background-color: var(--color-bg-1);
+  padding: 6px 30px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.inner-wrap .inner-below > button:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+svg {
+  transition: transform 0.3s ease-in-out;
+}
+
+svg:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease-in-out;
 }

@@ -37,9 +37,7 @@ window.addEventListener("load", () => {
 
 // Pagination
 const pageItems = document.querySelectorAll(".pagination .page-item");
-
-const page = parseInt(new URL(window.location.href).searchParams.get("page"));
-
-pageItems[page].classList.add("active");
-
-
+if (pageItems) {
+  const page = parseInt(new URL(window.location.href).searchParams.get("page"));
+  pageItems[page].classList.add("active");
+}

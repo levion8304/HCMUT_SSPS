@@ -72,3 +72,11 @@ label {
 .form-control:focus {
   box-shadow: none;
 }
+
+input.no-focus {
+  border: 1px solid #ddd;
+}
+
+input.no-focus:hover, input.no-focus:focus {
+  border: 1px solid #ddd;
+}
