@@ -8,7 +8,6 @@ const printerSchema = new mongoose.Schema(
     power: String,
     printPapers: [
       {
-        // file: File,
         paperSize: String,
         paperQuantity: Number,
       },

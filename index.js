@@ -14,6 +14,7 @@ const methodOverride = require("method-override");
 
 
 const app = express();
+app.use(express.json());
 const port = process.env.PORT;
 
 database.connect();
