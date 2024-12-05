@@ -7,15 +7,16 @@ module.exports.index = async (req, res) => {
 
   const usersTotal = await User.find({ username: { $ne: "admin" } });
 
-  const loginLogs = await LoginLog.find({ deleted: false })
-    .skip((page - 1) * 20)
-    .limit(20);
+  const loginLogs = await LoginLog.find({ deleted: false });
+  // .skip((page - 1) * 20)
+  // .limit(20);
 
   let todayLoginCount = 0;
   let inMonthLoginCount = 0;
+  let userInMonth = [];
+  let userToday = [];
   loginLogs.forEach((loginLog) => {
     const dateString = loginLog.createdAt;
-
     const date = new Date(dateString);
     const today = new Date();
     const day = date.getDate();
@@ -26,25 +27,40 @@ module.exports.index = async (req, res) => {
       month == today.getMonth() + 1 &&
       year == today.getFullYear()
     ) {
+      userToday.push(loginLog);
       todayLoginCount++;
     }
     if (month == today.getMonth() + 1 && year == today.getFullYear()) {
+      userInMonth.push(loginLog);
       inMonthLoginCount++;
     }
   });
 
   // console.log(day, month, year);
+  let result = [];
+  const time = req.query.time;
+  if (time) {
+    if (time == "month") {
+      result = userInMonth;
+    } else {
+      result = userToday;
+    }
+  } else {
+    result = loginLogs;
+  }
 
-  const totalPages = Math.ceil(loginLogs.length / 20);
+  result = result.slice((page - 1) * 20 , page * 20  );
+
+  const totalPages = Math.ceil(result.length / 20);
 
   Promise.all(
-    loginLogs.map((loginLog) => User.findOne({ token: loginLog.token }))
+    result.map((loginLog) => User.findOne({ token: loginLog.token }))
   ).then((users) => {
     res.render("admin/pages/log/index.pug", {
       pageTitle: "Trang lịch sử đăng nhập",
       users: users,
       usersTotal: usersTotal,
-      loginLogs: loginLogs,
+      loginLogs: result,
       page: page,
       totalPages: totalPages,
       todayLoginCount: todayLoginCount,

@@ -29,12 +29,26 @@ block main
       .col-12 
         .inner-actions   
           .inner-filters 
-            .inner-filter 
-              span Tình trạng
-              img(src="/admin/images/printer-arrow-down.svg" alt="")
-            .inner-filter 
-              span Hoạt động
-              img(src="/admin/images/printer-arrow-down.svg" alt="")
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                | Tình trạng
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Tất cả</a></li>
+                <li><a class="dropdown-item" href="#">Đang sử dụng</a></li>
+                <li><a class="dropdown-item" href="#">Đang trống</a></li>
+              </ul>
+            </div>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                | Hoạt động
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="# ">Tất cả</a></li>
+                <li><a class="dropdown-item" href="#">Bật</a></li>
+                <li><a class="dropdown-item" href="#">Tắt</a></li>
+              </ul>
+            </div>
           a(
             class="inner-button"
             href=`${prefixAdmin}/printer/create`
@@ -123,6 +137,6 @@ block main
                   path(d="M9 18L15 12L9 6" stroke="#747474" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round")
 
 
-
+  script(src="/admin/js/printer-index.js")   
 
 

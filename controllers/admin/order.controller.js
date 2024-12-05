@@ -6,6 +6,7 @@ module.exports.index = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   let requests = null;
   let totalPages = 0;
+
   if (req.query.result) {
     requests = await Request.find({ result: req.query.result });
     totalPages = Math.ceil(requests.length / 20);
@@ -15,7 +16,7 @@ module.exports.index = async (req, res) => {
   } else {
     requests = await Request.find({});
     totalPages = Math.ceil(requests.length / 20);
-    requests = await Request.find({})
+    requests = await Request.find({}) 
       .skip((page - 1) * 20)
       .limit(20);
   }

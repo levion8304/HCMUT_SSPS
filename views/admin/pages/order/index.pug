@@ -5,7 +5,7 @@ block style
 
 block main 
   .container-fluid 
-    .row.mb-5 
+    .row.mb-3 
       ul(class="nav nav-underline mb-3")
         li(class="nav-item")
           a(class="nav-link active" href=`${prefixAdmin}/order?page=1`) Tất cả đơn đặt in
@@ -15,12 +15,22 @@ block main
           a(class="nav-link" href=`${prefixAdmin}/order?result=printed&page=1`) Đã in
         li(class="nav-item")
           a(class="nav-link" href=`${prefixAdmin}/order?result=failed&page=1`) Thất bại
-      .inner-actions
-        .input-box 
-          img(src="/admin/images/order-filter-icon.svg" alt="")
-          input(type="text" placeholder="Thêm điều kiện lọc")
-        .garbage-bin 
-          img(src="/admin/images/order-garbage-bin.svg" alt="")
+
+    .row.my-2  
+      .col-12 
+        .inner-actions 
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              | Mã máy in
+            </button>
+            <ul class="dropdown-menu printer-id-dropdown-menu">
+              <li><a class="dropdown-item" href="#">1</a></li>
+              <li><a class="dropdown-item" href="#">2</a></li>
+              <li><a class="dropdown-item" href="#">2</a></li>
+            </ul>
+          </div>
+
+
     
     .row-my-5
       .col-12 

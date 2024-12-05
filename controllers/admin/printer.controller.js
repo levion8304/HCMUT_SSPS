@@ -3,25 +3,62 @@ const systemConfig = require("../../config/system");
 
 // [GET] /admin/printer
 module.exports.index = async (req, res) => {
+  const status = req.query.status;
+  const power = req.query.power;
   const page = parseInt(req.query.page) || 1;
-
-  const printersPage = await Printer.find({ deleted: false }).skip((page - 1) * 5).limit(5);
-
-  const printers = await Printer.find({ deleted: false });
+  let printers = null;
+  let printersPage = null;
+  if (status && power) {
+    printersPage = await Printer.find({
+      deleted: false,
+      status: status,
+      power: power,
+    })
+      .skip((page - 1) * 5)
+      .limit(5);
+    printers = await Printer.find({
+      deleted: false,
+      status: status,
+      power: power,
+    });
+  } else if (status && !power) {
+    printersPage = await Printer.find({ deleted: false, status: status })
+      .skip((page - 1) * 5)
+      .limit(5);
+    printers = await Printer.find({ deleted: false, status: status });
+  } else if (!status && power) {
+    printersPage = await Printer.find({ deleted: false, power: power })
+      .skip((page - 1) * 5)
+      .limit(5);
+    printers = await Printer.find({ deleted: false, power: power });
+  } else {
+    printersPage = await Printer.find({ deleted: false })
+      .skip((page - 1) * 5)
+      .limit(5);
+    printers = await Printer.find({ deleted: false });
+  }
 
   const totalPages = Math.ceil(printers.length / 5);
 
-  let countStandby = 0, countOn = 0, countUsing = 0;
-  for (const printer of printers) {
-    if (printer.status == "standby") {
-      countStandby++;
-    } else {
-      countUsing++;
-    }
-    if (printer.power == "on") {
-      countOn++;
-    }
-  }
+  const countStandby = await Printer.countDocuments({
+    deleted: false,
+    status: "standby",
+  });
+  const countUsing = await Printer.countDocuments({
+    deleted: false,
+    status: "using",
+  });
+  const countOn = await Printer.countDocuments({ deleted: false, power: "on" });
+  // for (const printer of printers) {
+  //   if (printer.status == "standby") {
+  //     countStandby++;
+  //   } else {
+  //     countUsing++;
+  //   }
+  //   if (printer.power == "on") {
+  //     countOn++;
+  //   }
+  // }
 
   let printPapers = [];
   printers.forEach((printer) => {
@@ -33,7 +70,6 @@ module.exports.index = async (req, res) => {
     temp += "A4 : " + String(printer.printPapers[4].paperQuantity);
     printPapers.push(temp);
   });
-
   res.render("admin/pages/printer/index.pug", {
     pageTitle: "Trang quản lý máy in",
     printers: printersPage,
@@ -43,7 +79,7 @@ module.exports.index = async (req, res) => {
     countOn: countOn,
     countUsing: countUsing,
     printerCount: printers.length,
-    printPapers : printPapers
+    printPapers: printPapers,
   });
 };
 
@@ -61,7 +97,7 @@ module.exports.createPost = async (req, res) => {
     await newPrinter.save();
 
     req.flash("success", "Thêm máy in thành công");
-    res.redirect(`${systemConfig.prefixAdmin}/printer`);
+    res.redirect(`${systemConfig.prefixAdmin}/printer?page=1`);
   } catch (error) {
     req.flash("error", "Thêm máy in thất bại");
     res.redirect("back");
@@ -88,7 +124,7 @@ module.exports.editPatch = async (req, res) => {
       req.body
     );
     req.flash("success", "Cập nhật thành công!");
-    res.redirect(`${systemConfig.prefixAdmin}/printer`);
+    res.redirect(`${systemConfig.prefixAdmin}/printer?page=1`);
   } catch (error) {
     req.flash("error", "Cập nhật thất bại!");
     res.redirect("back");

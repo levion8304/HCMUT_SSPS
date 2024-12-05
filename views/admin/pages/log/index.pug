@@ -22,22 +22,17 @@ block main
     .row.my-4  
       .col-12 
         .inner-actions 
-          .dropdown 
-            button(
-              data-bs-toggle="dropdown"
-              class="btn filter-button"
-              type="button"
-            ) 
-              div All 
-              img(src="/admin/images/printer-arrow-down.svg" alt="")
-          .dropdown 
-            button(
-              data-bs-toggle="dropdown"
-              class="btn filter-button"
-              type="button"
-            ) 
-              div All Departments
-              img(src="/admin/images/printer-arrow-down.svg" alt="")
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              | Thời gian đăng nhập
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Tất cả</a></li>
+              <li><a class="dropdown-item" href="#">Đăng nhập trong tháng</a></li>
+              <li><a class="dropdown-item" href="#">Đăng nhập trong ngày</a></li>
+            </ul>
+          </div>
+        
     
     .row-my-5
       .col-12 
@@ -87,5 +82,4 @@ block main
                 svg(width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg")
                   path(d="M9 18L15 12L9 6" stroke="#747474" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round")
 
-
-  
+  script(src="/admin/js/log-index.js")    
