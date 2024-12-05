@@ -75,3 +75,59 @@ module.exports.index = async (req, res) => {
     printerIdDropdownList: printerIdDropdownList,
   });
 };
+
+// [PATCH] /admin/order/success/:id
+module.exports.success = async (req, res) => {
+  try {
+    const request = await Request.findOne({ _id: req.params.id });
+    await Printer.updateOne(
+      {
+        printerId: request.printerId,
+      },
+      {
+        status: "standby",
+      }
+    );
+    await Request.updateOne(
+      {
+        _id: req.params.id,
+      },
+      {
+        result: "printed",
+      }
+    );
+    req.flash("success", "Cập nhật kết quả in thành công!");
+    res.redirect("back");
+  } catch (error) {
+    req.flash("error", "Cập nhật kết quả in thất bại!");
+    res.redirect("back");
+  }
+};
+
+// [PATCH] /admin/order/fail/:id
+module.exports.fail = async (req, res) => {
+  try {
+    const request = await Request.findOne({ _id: req.params.id });
+    await Printer.updateOne(
+      {
+        printerId: request.printerId,
+      },
+      {
+        status: "standby",
+      }
+    );
+    await Request.updateOne(
+      {
+        _id: req.params.id,
+      },
+      {
+        result: "failed",
+      }
+    );
+    req.flash("success", "Cập nhật kết quả in thành công!");
+    res.redirect("back");
+  } catch (error) {
+    req.flash("error", "Cập nhật kết quả in thất bại!");
+    res.redirect("back");
+  }
+};

@@ -1,21 +1,19 @@
 const User = require("../../models/user.model");
 const Printer = require("../../models/printer.model");
 const PrintRequest = require("../../models/printRequest.model");
+const LoginLog = require("../../models/loginLog.model");
 
 // [GET] /admin/dashboard
 module.exports.index = async (req, res) => {
   try {
-    const users = await User.find({ username: { $ne: "admin" } });
-    const requests = await PrintRequest.find({ result: "printed" });
+    const users = await User.find({ username: { $ne: "admin" } , deleted : false});
+    const requests = await PrintRequest.find({ result: "printed"});
 
     const totalUsers = users.length;
-    const totalPrinters = await Printer.countDocuments({});
+    const totalPrinters = await Printer.countDocuments({deleted : false});
     // const totalRequests = requests.length;
 
-    let totalLogin = 0;
-    users.forEach((user) => {
-      totalLogin += user.loginTimes;
-    });
+    const totalLogin = await LoginLog.countDocuments({deleted : false});
 
     let totalPrintTimes = 0;
     let totalPrintedPaper = [

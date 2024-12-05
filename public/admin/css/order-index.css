@@ -40,6 +40,32 @@
   color: white;
 }
 
+.fail-button {
+  border: 1px solid var(--color-bg-1);
+  padding: 4px 6px;
+  border-radius: 50%;
+  color: var(--color-bg-1);
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.success-button {
+  border: 1px solid rgb(45, 204, 130);
+  color: rgb(45, 204, 130);
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  padding: 4px 6px;
+  border-radius: 50%;
+}
+
+i:hover {
+  background-color: #dd5f5f;
+  color: white;
+  transform: scale(1.05);
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+.success-button:hover {
+  background-color: rgb(45, 204, 130);
+}
+
 /* Pagination */
 .pagination  {
   align-items: center;
