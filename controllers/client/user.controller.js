@@ -114,7 +114,7 @@ module.exports.logOrder = async (req, res) => {
     printPageSize.push(temp);
   });
   Promise.all(
-    requests.map((request) => Printer.findOne({ _id: request.printerId }))
+    requests.map((request) => Printer.findOne({ printerId: request.printerId }))
   ).then((printers) => {
     res.render("client/pages/user/log-order.pug", {
       pageTitle: "Lịch sử đặt in",

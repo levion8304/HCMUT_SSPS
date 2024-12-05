@@ -50,7 +50,7 @@ block main
                       select(class="form-select form-select-sm" name="print-machine" required)
                         option(selected disabled) -- Chọn máy in --
                         each printer in printers
-                          option(value=printer._id) #{printer.name}
+                          option(value=printer.printerId) #{printer.name}
                     .checkbox
                       div(class="form-check")
                         input(

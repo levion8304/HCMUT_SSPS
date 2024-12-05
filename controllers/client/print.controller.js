@@ -109,7 +109,7 @@ module.exports.createPost = async (req, res) => {
 
     await Printer.updateOne(
       {
-        _id: printerId,
+        printerId: printerId,
       },
       {
         status: "using",
