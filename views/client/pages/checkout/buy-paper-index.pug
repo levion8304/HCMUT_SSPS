@@ -35,7 +35,7 @@ block main
                 span #{num2}
               .inner-item 
                 span Đơn giá: 
-                span 5,000<sup>đ</sup>
+                span 50,000<sup>đ</sup>
               .inner-item 
                 span Phương thức thanh toán:
                 span #{payment_method}
@@ -43,7 +43,10 @@ block main
               .inner-item 
                 span Tổng tiền: 
                 span #{total_price || 0}<sup>đ</sup>
-            form(method="POST", action="/print/buy-paper/post-buypaper")
+            form(
+              method="POST", 
+              action="/print/buy-paper/post-buypaper"
+            )
               input(type="hidden", name="totalPage", value=`${totalpage}`)
               .inner-checkout-button 
                 button(

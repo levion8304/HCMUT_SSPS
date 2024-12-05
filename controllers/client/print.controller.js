@@ -1,129 +1,145 @@
 const Printer = require("../../models/printer.model");
 const User = require("../../models/user.model");
+const PrintRequest = require("../../models/printRequest.model");
 
-//Các thông số fix khi chưa có Database
-module.exports.messages = []
-module.exports.num_page = 0
-module.exports.bonus_price = 0
-module.exports.total_price = 0
 // [GET] /print
 module.exports.index = (req, res) => {
   res.render("client/pages/print/index.pug", {
-    pageTitle: "Trang in ấn"
-  })
-}
+    pageTitle: "Trang in ấn",
+  });
+};
 
 // [GET] /print/create
 module.exports.create = async (req, res) => {
-  await User.updateOne({ token: req.cookies.token }, 
-    {printPage: 100})
+  await User.updateOne({ token: req.cookies.token }, { printPage: 100 });
   const printers = await Printer.find({ status: "standby" });
   res.render("client/pages/print/create.pug", {
     pageTitle: "Trang tạo in ấn",
-    messages: module.exports.messages,
     printers: printers,
-    num_page: module.exports.num_page,
-    bonus_price: module.exports.bonus_price,
-    total_price: module.exports.total_price,
-  })
-}
+    num_page: 0,
+    bonus_price: 6000,
+    total_price: 0,
+  });
+};
 
 // [GET] /print/buy-paper
 module.exports.buyPaper = (req, res) => {
   res.render("client/pages/print/buy-paper.pug", {
-    pageTitle: "Mua giấy"
-  })
-}
+    pageTitle: "Mua giấy",
+  });
+};
 
-//[POST] /print/create/get-input
+// [POST] /print/create
+module.exports.createPost = async (req, res) => {
+  try {
+    const typePrint = req.body.printtype;
+    const printSide = req.body.side;
+    const printerId = req.body["print-machine"];
+    const pageSize = req.body.size;
+    const printQuantity = req.body.copy;
+    const file = req.file.path;
 
-module.exports.getPrintInfo = (req,res) => {
-  console.log(req.body);
-  cost = 0
-  page_cost = 0
-  num_page = 0
-  module.exports.messages = []
-  //Get page cost from print type
-  if(req.body.printtype=="colored"){
-    page_cost = 3000
-  }
-  else if(req.body.printtype=="blackwhite"){
-    page_cost = 1000
-  }
-  
-  //Get num_page from size, copy and pagenum
-  if(req.body.size=="A0"){
-    num_page = 16*req.body.copy*req.body.pagenum
-  }
-  else if(req.body.size=="A1"){
-    num_page = 8*req.body.copy*req.body.pagenum
-  }
-  else if(req.body.size=="A2"){
-    num_page = 4*req.body.copy*req.body.pagenum
-  }
-  else if(req.body.size=="A3"){
-    num_page = 2*req.body.copy*req.body.pagenum
-  }
-  else if(req.body.size=="A4"){
-    num_page = 1*req.body.copy*req.body.pagenum
-  }
-  
-  //Caculate cost
-  cost = num_page*page_cost
-  
-  module.exports.num_page = num_page
-  module.exports.bonus_price = 5000
-  module.exports.total_price = cost + module.exports.bonus_price
-  res.redirect('/print/create')
-}
+    const stylePaperPrint = [
+      {
+        paperSize: "A0",
+        paperQuantity: 0,
+      },
+      {
+        paperSize: "A1",
+        paperQuantity: 0,
+      },
+      {
+        paperSize: "A2",
+        paperQuantity: 0,
+      },
+      {
+        paperSize: "A3",
+        paperQuantity: 0,
+      },
+      {
+        paperSize: "A4",
+        paperQuantity: 0,
+      },
+    ];
+    stylePaperPrint[parseInt(pageSize.split("")[1])].paperQuantity =
+      req.body.pagenum;
 
-//[GET] /print/create/confirm-print-info
-module.exports.confirmPrint = async (req,res) => {
-  const slotPrintLeft = await User.findOne({ token: req.cookies.token }).select("printPage");
-  module.exports.messages = []
-  if(module.exports.num_page>slotPrintLeft.printPage){
-    module.exports.messages.push("Không đủ trang để in")
-    req.flash("error", "Tin nhắn")
-    res.redirect('/print/create')
+    let slotPrintLeft = req.body.pagenum * printQuantity;
+    switch (pageSize) {
+      case "A0":
+        slotPrintLeft *= 16;
+        break;
+      case "A1":
+        slotPrintLeft *= 8;
+        break;
+      case "A2":
+        slotPrintLeft *= 4;
+        break;
+      case "A3":
+        slotPrintLeft *= 2;
+        break;
+      default:
+        slotPrintLeft *= 1;
+        break;
+    }
+
+    if (slotPrintLeft > res.locals.user.printPage) {
+      req.flash("error", "Không đủ lượt in! Mời bạn nạp thêm lượt in");
+      res.redirect("back");
+      return;
+    }
+
+    await User.updateOne(
+      { token: req.cookies.token },
+      { printPage: res.locals.user.printPage - slotPrintLeft }
+    );
+
+    const newPrintRequest = new PrintRequest({
+      typePrint,
+      printSide,
+      printerId,
+      pageSize,
+      printQuantity,
+      file,
+      stylePaperPrint,
+      token: req.cookies.token,
+      result: "printing",
+    });
+
+    await newPrintRequest.save();
+
+    req.flash("success", "Tạo in thành công!");
+    res.redirect("/home");
+  } catch (error) {
+    req.flash("error", "Tạo in thất bại!");
+    res.redirect("back");
   }
-  else{
-    await User.updateOne({ token: req.cookies.token }, 
-      {printPage: slotPrintLeft.printPage - module.exports.num_page})
-    console.log("Số trang in A4 còn lại :",slotPrintLeft.printPage)
-    module.exports.num_page = 0
-    module.exports.bonus_price = 0
-    module.exports.total_price = 0
-    req.flash("success", "Tin nhắn")
-    res.redirect('/home')
-  }
-  
-}
+};
 
-
-
-
-
-//[POST] /print/buy-paper/post-buypaper
 // [POST] /print/buy-paper/post-buypaper
 module.exports.postBuypaper = async (req, res) => {
   try {
-    const totalPage = req.body.totalPage; // Lấy từ request body hoặc query
+    const totalPage = req.body.totalPage;
     if (!totalPage) {
       req.flash("error", "Thông tin số trang không hợp lệ.");
-      return res.redirect("/checkout/buy-paper");
+      res.redirect("/checkout/buy-paper");
+      return;
     }
 
-    const user = await User.findOne({ token: req.cookies.token }).select("printPage");
+    const user = await User.findOne({ token: req.cookies.token });
+    await User.updateOne(
+      { token: req.cookies.token },
+      { printPage: user.printPage + parseInt(totalPage) }
+    );
 
-    user.printPage += parseInt(totalPage, 10); // Cộng số trang mới
-    await user.save(); // Lưu lại thay đổi
-
-    console.log("Số trang in sau update:", user.printPage);
-
-    req.flash("success", `Cập nhật thành công! Số trang in hiện tại: ${user.printPage}`);
+    req.flash(
+      "success",
+      `Cập nhật thành công! Số trang in hiện tại: ${
+        user.printPage + parseInt(totalPage)
+      }`
+    );
     res.redirect("/home");
   } catch (error) {
-    console.error("Lỗi trong postBuypaper:", error);
     req.flash("error", "Có lỗi xảy ra. Vui lòng thử lại.");
     res.redirect("/checkout/buy-paper");
   }

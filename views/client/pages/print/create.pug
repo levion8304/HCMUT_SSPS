@@ -1,9 +1,12 @@
 extends ../../layouts/default.pug
+include ../../mixins/alert.pug
 
 block style 
-  link(rel="stylesheet", href="/client/css/print-create.css")
+  link(rel="stylesheet", href="/client/css/print-create.css") 
 
 block main 
+  +alert-error(5000)
+
   .container 
     .row 
       .col-12 
@@ -20,12 +23,16 @@ block main
           .inner-right-content 
             .inner-print-info
               h5 Thông tin tạo in
-              form(action="/print/create/get-print-info" method="POST")
+              form(
+                action="/print/create" 
+                method="POST"
+                enctype="multipart/form-data"
+              )
                 .row 
                   .col-6
                     div(class="form-group mb-3")
                       label(for="printtype") Chọn loại in 
-                      select(class="form-select form-select-sm" name="printtype")
+                      select(class="form-select form-select-sm" name="printtype" required)
                         option(selected value="blackwhite") In trắng đen
                         option(value="colored") In màu
                     div(class="form-group mb-3")
@@ -40,7 +47,7 @@ block main
                       )
                     div(class="form-group mb-3")
                       label(for="print-machine") Chọn máy in 
-                      select(class="form-select form-select-sm" name="print-machine")
+                      select(class="form-select form-select-sm" name="print-machine" required)
                         option(selected disabled) -- Chọn máy in --
                         each printer in printers
                           option(value=printer._id) #{printer.name}
@@ -80,14 +87,14 @@ block main
                       label(for="filename") Chọn file 
                       input(
                         type="file"
-                        class="form-control"
+                        class="form-control form-control-file"
                         name="filename"
                         id="filename"
                         required
                       )
                     div(class="form-group mb-3")
                       label(for="size") Khổ giấy 
-                      select(class="form-select form-select-sm" name="size")
+                      select(class="form-select form-select-sm" name="size" required)
                         option(value="A0") A0
                         option(value="A1") A1
                         option(value="A2") A2
@@ -103,16 +110,7 @@ block main
                         id="copy"
                         required
                       )
-                .messages
-                each message in messages
-                  div= message 
-                .col-12
-                    div(class="form-group d-flex justify-content-center mt-4 mb-3")
-                      button(
-                        type="submit"
-                        class="btn submit-button"
-                      ) Tạo in ấn
-              form(action="/print/create/confirm-print-info" method="POST")
+
                 .inner-print-checkout 
                   .row 
                     .col-12 
@@ -124,11 +122,11 @@ block main
                       .inner-item 
                         span Giá bìa tổng:
                         .bonus_price
-                          span #{(bonus_price).toLocaleString("vi-VN")}<sup>đ</sup>
+                          span #{(bonus_price).toLocaleString()}<sup>đ</sup>
                       .inner-item 
                         span Tổng tiền:
                         .total_price
-                          span #{(total_price).toLocaleString("vi-VN")}<sup>đ</sup> 
+                          span #{(total_price).toLocaleString()}<sup>đ</sup> 
                 .inner-print-button
                   .row.text-center
                     .col-12
@@ -139,5 +137,5 @@ block main
                         ) In ấn
                       b Thời gian dự kiến: 24h
 
-
+  script(src="/client/js/print-create.js") 
 
