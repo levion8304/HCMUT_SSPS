@@ -33,16 +33,29 @@
   gap: 40px;
 }
 
-.inner-actions .inner-filters .inner-filter {
+.inner-actions .inner-filters .dropdown button {
+  background-color: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--color-bg-2);
-  padding: 5px;
-  padding-left: 10px;
+  gap: 20px;
+  color: var(--color-bg-1);
   border-radius: 10px;
-  font-weight: 600;
-  width: 20%;
+  border: 1px solid var(--color-bg-1);
+}
+
+.inner-actions .inner-filters .dropdown button:hover {
+  background-color: var(--color-bg-1);
+  color: white;
+}
+
+.inner-actions .inner-filters .dropdown-menu {
+  border: 1px solid var(--color-bg-1);
+}
+
+.inner-actions .inner-filters .dropdown-menu .dropdown-item:hover {
+  background-color: #dd5f5f;
+  color: white;
 }
 
 .inner-actions .inner-button {

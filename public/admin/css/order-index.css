@@ -15,34 +15,30 @@
   border-bottom: 2px solid var(--color-bg-1);
 }
 
-.inner-actions {
+.inner-actions .dropdown button {
+  background-color: white;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 20px;
-}
-
-.inner-actions .input-box {
-  display: flex;
-  align-items: center;
+  color: var(--color-bg-1);
   border-radius: 10px;
-  border: 2px solid #ECECEC;
-  width: fit-content;
-  gap: 10px;
-  overflow: hidden;
+  border: 1px solid var(--color-bg-1);
 }
 
-.inner-actions .input-box img {
-  padding-left: 10px;
+.inner-actions .dropdown button:hover {
+  background-color: var(--color-bg-1);
+  color: white;
 }
 
-.inner-actions .input-box input {
-  border: none;
-  outline: none;
-  padding: 5px 0;
+.inner-actions .dropdown-menu {
+  border: 1px solid var(--color-bg-1);
 }
 
-
-
+.inner-actions .dropdown-menu .dropdown-item:hover {
+  background-color: #dd5f5f;
+  color: white;
+}
 
 /* Pagination */
 .pagination  {
