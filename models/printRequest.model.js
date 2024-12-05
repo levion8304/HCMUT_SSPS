@@ -6,7 +6,8 @@ const printRequestSchema = new mongoose.Schema(
     token: String, // Lấy từ tài khoản bất kì trong user
     requestId: {
       type: String,
-      default: "ORD" + generateItemId(15)
+      default: "ORD" + generateItemId(15),
+      unique: true
     },
     typePrint: String, //blackwhite, colored
     stylePaperPrint: [{

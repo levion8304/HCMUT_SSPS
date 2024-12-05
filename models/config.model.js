@@ -7,7 +7,6 @@ const configSchema = new mongoose.Schema(
       default: 50
     },
     permittedFileTypes: Array,
-
   },
   {
     timestamps: true,

@@ -5,11 +5,10 @@ const Printer = require("../../models/printer.model");
 // [GET] /admin/order
 module.exports.index = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
-  
   let requests = null;
   let totalPages = 0;
 
-  if (req.query.result && printerLocation) {
+  if (req.query.result) {
     requests = await Request.find({ result: req.query.result });
     totalPages = Math.ceil(requests.length / 20);
     requests = await Request.find({ result: req.query.result })
