@@ -56,15 +56,17 @@ block main
       .col-5.d-flex.justify-content-center 
         ul.pagination.gap-3
           li.page-item
-            a.page-link(href=`${prefixAdmin}/user?page=${page > 1 ? page - 1 : 1}`)
+            a.page-link(href=`#`)
               span 
                 svg(width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg")
                   path(d="M15 18L9 12L15 6" stroke="#747474" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round")
           each page, index in [...Array(totalPages)]
             li.page-item.page-number
-              a.page-link(href=`${prefixAdmin}/user?page=${index + 1}`) #{index + 1}
+              a.page-link(href=`#`) #{index + 1}
           li.page-item
-            a.page-link(href=`${prefixAdmin}/user?page=${page < totalPages ? page + 1 : page}`)
+            a.page-link(href=`#`)
               span
                 svg(width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg")
                   path(d="M9 18L15 12L9 6" stroke="#747474" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round")   
+  script. 
+    const totalPages = "#{totalPages}"
