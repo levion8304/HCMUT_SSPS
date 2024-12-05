@@ -124,6 +124,22 @@ module.exports.fail = async (req, res) => {
         result: "failed",
       }
     );
+    let slotPrintUsed = 0;
+    slotPrintUsed += request.stylePaperPrint[0].paperQuantity * 16;
+    slotPrintUsed += request.stylePaperPrint[1].paperQuantity * 8;
+    slotPrintUsed += request.stylePaperPrint[2].paperQuantity * 4;
+    slotPrintUsed += request.stylePaperPrint[3].paperQuantity * 2;
+    slotPrintUsed += request.stylePaperPrint[4].paperQuantity * 1;
+
+    const user = await User.findOne({ token: request.token });
+    await User.updateOne(
+      {
+        token: request.token,
+      },
+      {
+        printPage: user.printPage + slotPrintUsed,
+      }
+    );
     req.flash("success", "Cập nhật kết quả in thành công!");
     res.redirect("back");
   } catch (error) {

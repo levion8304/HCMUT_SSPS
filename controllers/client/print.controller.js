@@ -61,7 +61,7 @@ module.exports.createPost = async (req, res) => {
       },
     ];
     stylePaperPrint[parseInt(pageSize.split("")[1])].paperQuantity =
-      req.body.pagenum;
+      req.body.pagenum * printQuantity;
 
     let slotPrintLeft = req.body.pagenum * printQuantity;
     switch (pageSize) {
