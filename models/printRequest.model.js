@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
-const { generateTokenString } = require("../helpers/generate");
+const { generateItemId } = require("../helpers/generate");
 
 const printRequestSchema = new mongoose.Schema(
   {
     token: String, // Lấy từ tài khoản bất kì trong user
     requestId: {
       type: String,
-      default: "ORD" + generateTokenString(20)
+      default: "ORD" + generateItemId(15)
     },
     typePrint: String, //blackwhite, colored
     stylePaperPrint: [{
