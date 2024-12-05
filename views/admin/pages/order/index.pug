@@ -8,13 +8,13 @@ block main
     .row.mb-3 
       ul(class="nav nav-underline mb-3")
         li(class="nav-item")
-          a(class="nav-link active" href=`${prefixAdmin}/order?page=1`) Tất cả đơn đặt in
+          a(class="nav-link active" href=`#`) Tất cả đơn đặt in
         li(class="nav-item")
-          a(class="nav-link" href=`${prefixAdmin}/order?result=printing&page=1`) Đang in
+          a(class="nav-link" href=`#`) Đang in
         li(class="nav-item")
-          a(class="nav-link" href=`${prefixAdmin}/order?result=printed&page=1`) Đã in
+          a(class="nav-link" href=`#`) Đã in
         li(class="nav-item")
-          a(class="nav-link" href=`${prefixAdmin}/order?result=failed&page=1`) Thất bại
+          a(class="nav-link" href=`#`) Thất bại
 
     .row.my-2  
       .col-12 
@@ -52,7 +52,7 @@ block main
                 td #{request.createdAt.toLocaleString("vi-VN")}
                 td #{users[index] ? users[index].fullname : "Không xác định"}
                 td #{printPageSize[index]}
-                td #{printers[index] ? printers[index].printerId : "Không xác định"}
+                td #{requests[index].printerId}
                 td #{request.result == "printing" ? "Đang in" : request.result == "printed" ? "Đã in" : "Thất bại"}
             
                                 

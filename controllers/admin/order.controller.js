@@ -4,11 +4,35 @@ const Printer = require("../../models/printer.model");
 
 // [GET] /admin/order
 module.exports.index = async (req, res) => {
+  let requests = await Request.find({});
   const page = parseInt(req.query.page) || 1;
-  let requests = null;
+  const mySet = new Set();
+  requests.forEach((request) => {
+    mySet.add(request.printerId);
+  });
+  const printerIdDropdownList = [...mySet];
+  requests = null;
   let totalPages = 0;
-
-  if (req.query.result) {
+  const printerId = req.query.printerId;
+  if (req.query.result && printerId) {
+    requests = await Request.find({
+      result: req.query.result,
+      printerId: printerId,
+    });
+    totalPages = Math.ceil(requests.length / 20);
+    requests = await Request.find({
+      result: req.query.result,
+      printerId: printerId,
+    })
+      .skip((page - 1) * 20)
+      .limit(20);
+  } else if (!req.query.result && printerId) {
+    requests = await Request.find({ printerId: printerId });
+    totalPages = Math.ceil(requests.length / 20);
+    requests = await Request.find({ printerId: printerId })
+      .skip((page - 1) * 20)
+      .limit(20);
+  } else if (req.query.result && !printerId) {
     requests = await Request.find({ result: req.query.result });
     totalPages = Math.ceil(requests.length / 20);
     requests = await Request.find({ result: req.query.result })
@@ -32,11 +56,6 @@ module.exports.index = async (req, res) => {
     temp += "A4 : " + String(request.stylePaperPrint[4].paperQuantity);
     printPageSize.push(temp);
   });
-  const mySet = new Set();
-  requests.forEach((request) => {
-    mySet.add(request.printerId);
-  });
-  const printerIdDropdownList = [...mySet];
 
   const mapUser = async (requests) => {
     const users = await Promise.all(
@@ -44,19 +63,12 @@ module.exports.index = async (req, res) => {
     );
     return users;
   };
-  const mapPrinter = async (requests) => {
-    const printers = await Promise.all(
-      requests.map((request) => Printer.findOne({ _id: request.printerId }))
-    );
-    return printers;
-  };
+
   const users = await mapUser(requests);
-  const printers = await mapPrinter(requests);
   res.render("admin/pages/order/index.pug", {
     pageTitle: "Quản lý đơn đặt in",
     requests: requests,
     users: users,
-    printers: printers,
     printPageSize: printPageSize,
     page: page,
     totalPages: totalPages,

@@ -9,6 +9,7 @@ const printRequestSchema = new mongoose.Schema(
       default: "ORD" + generateItemId(15),
       unique: true
     },
+    printerId: String,
     typePrint: String, //blackwhite, colored
     stylePaperPrint: [{
     // file: File,
