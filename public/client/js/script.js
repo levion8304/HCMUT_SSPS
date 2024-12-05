@@ -18,9 +18,7 @@ if (showAlert) {
 const uploadImage = document.querySelector("[upload-image]");
 if (uploadImage) {
   const uploadImageInput = uploadImage.querySelector("[upload-image-input]");
-  const uploadImagePreview = document.querySelector(
-    "[upload-image-preview]"
-  );
+  const uploadImagePreview = document.querySelector("[upload-image-preview]");
   uploadImageInput.addEventListener("change", () => {
     const [file] = uploadImageInput.files;
     if (file) {
@@ -36,7 +34,6 @@ window.addEventListener("load", () => {
     loading.style.display = "none";
   }, 500);
 });
-
 
 const headerMenuItems = document.querySelectorAll(".header-menu > li");
 const url = new URL(window.location.href);
@@ -56,13 +53,16 @@ switch (url.pathname) {
   case "/user/my-account":
     headerMenuItems[4].classList.add("active");
     break;
+  case "/user/log-order":
+    headerMenuItems[4].classList.add("active");
+    break;
 
   default:
     break;
 }
 
 const siderMenuItems = document.querySelectorAll(".sider-menu > li");
-console.log(siderMenuItems)
+console.log(siderMenuItems);
 switch (url.pathname) {
   case "/user/my-account":
     siderMenuItems[0].classList.add("sider-menu-active");
