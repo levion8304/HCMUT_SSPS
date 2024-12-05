@@ -29,6 +29,7 @@ const userSchema = new mongoose.Schema(
     token: {
       type: String,
       default: generateTokenString(20),
+      unique: true
     },
   },
   {

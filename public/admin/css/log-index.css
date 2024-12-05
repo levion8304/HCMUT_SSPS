@@ -32,29 +32,29 @@
   gap: 50px;
 }
 
-.inner-actions .filter-button {
-  background-color: #F6F6F6;
+.inner-actions .dropdown button {
+  background-color: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
+  color: var(--color-bg-1);
+  border-radius: 10px;
+  border: 1px solid var(--color-bg-1);
 }
 
-.inner-actions .filter-button img { 
-  width: 20px;
-  height: 20px;
-}
-
-.inner-actions .delete-button {
+.inner-actions .dropdown button:hover {
   background-color: var(--color-bg-1);
   color: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 3px 10px;
-  border-radius: 20px;
-  width: fit-content;
-  gap: 30px;
+}
+
+.inner-actions .dropdown-menu {
+  border: 1px solid var(--color-bg-1);
+}
+
+.inner-actions .dropdown-menu .dropdown-item:hover {
+  background-color: #dd5f5f;
+  color: white;
 }
 
 table td, th {

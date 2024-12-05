@@ -1,8 +1,14 @@
 const mongoose = require("mongoose");
+const { generateItemId } = require("../helpers/generate");
 
 const printerSchema = new mongoose.Schema(
   {
     name: String,
+    printerId: {
+      type: String,
+      default: "PR" + generateItemId(6),
+      unique: true,
+    },
     description: String,
     status: String,
     power: String,
