@@ -92,8 +92,33 @@ module.exports.create = (req, res) => {
 
 // [POST] /admin/printer/create
 module.exports.createPost = async (req, res) => {
+  const updatePrinter = { ...req.body};
+  
+  const printPapers = [
+    {
+      paperSize: "A0",
+      paperQuantity: updatePrinter.A0
+    },
+    {
+      paperSize: "A1",
+      paperQuantity: updatePrinter.A1
+    },
+    {
+      paperSize: "A2",
+      paperQuantity: updatePrinter.A2
+    },
+    {
+      paperSize: "A3",
+      paperQuantity: updatePrinter.A3
+    },
+    {
+      paperSize: "A4",
+      paperQuantity: updatePrinter.A4
+    },
+  ]
+  updatePrinter.printPapers = printPapers;
   try {
-    const newPrinter = new Printer(req.body);
+    const newPrinter = new Printer(updatePrinter);
     await newPrinter.save();
 
     req.flash("success", "Thêm máy in thành công");
@@ -116,12 +141,38 @@ module.exports.edit = async (req, res) => {
 
 // [PATCH] /admin/printer/edit/:id
 module.exports.editPatch = async (req, res) => {
+  const updatePrinter = { ...req.body};
+  
+  const printPapers = [
+    {
+      paperSize: "A0",
+      paperQuantity: updatePrinter.A0
+    },
+    {
+      paperSize: "A1",
+      paperQuantity: updatePrinter.A1
+    },
+    {
+      paperSize: "A2",
+      paperQuantity: updatePrinter.A2
+    },
+    {
+      paperSize: "A3",
+      paperQuantity: updatePrinter.A3
+    },
+    {
+      paperSize: "A4",
+      paperQuantity: updatePrinter.A4
+    },
+  ]
+  updatePrinter.printPapers = printPapers;
+
   try {
     await Printer.updateOne(
       {
         _id: req.params.id,
       },
-      req.body
+      updatePrinter
     );
     req.flash("success", "Cập nhật thành công!");
     res.redirect(`${systemConfig.prefixAdmin}/printer?page=1`);

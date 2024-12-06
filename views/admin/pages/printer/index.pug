@@ -78,7 +78,7 @@ block main
                   .inner-name 
                     b #{printer.name}
                 td.text-center #{printer.location}
-                td.text-center #{printPapers[index]}
+                td.text-center #{printPapers[(page - 1) * 5 + index]}
                 td
                   .inner-status #{printer.status == "standby" ? "Đang trống" : "Đang sử dụng"}
                 td 
