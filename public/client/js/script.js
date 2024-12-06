@@ -62,7 +62,6 @@ switch (url.pathname) {
 }
 
 const siderMenuItems = document.querySelectorAll(".sider-menu > li");
-console.log(siderMenuItems);
 switch (url.pathname) {
   case "/user/my-account":
     siderMenuItems[0].classList.add("sider-menu-active");
@@ -73,4 +72,35 @@ switch (url.pathname) {
 
   default:
     break;
+}
+
+
+// Pagination
+const pageItems = document.querySelectorAll(".pagination .page-item");
+
+if (pageItems && pageItems.length) {
+  const page = parseInt(new URL(window.location.href).searchParams.get("page"));
+  pageItems[page].classList.add("active");
+
+  const pageLinks = document.querySelectorAll(
+    ".pagination .page-item .page-link"
+  );
+  const url = new URL(window.location.href);
+
+  for (let i = 1; i < pageLinks.length - 1; i++) {
+    pageLinks[i].addEventListener("click", () => {
+      url.searchParams.set("page", i);
+      window.location.href = url.href;
+    });
+  }
+
+  pageLinks[0].addEventListener("click", () => {
+    url.searchParams.set("page", page > 1 ? page - 1 : 1);
+    window.location.href = url.href;
+  });
+
+  pageLinks[pageLinks.length - 1].addEventListener("click", () => {
+    url.searchParams.set("page", page < totalPages ? page + 1 : page);
+    window.location.href = url.href;
+  });
 }

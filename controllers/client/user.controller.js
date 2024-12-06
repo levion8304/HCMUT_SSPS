@@ -102,7 +102,35 @@ module.exports.logout = (req, res) => {
 
 // [GET] /user/log-order
 module.exports.logOrder = async (req, res) => {
-  const requests = await PrintRequest.find({ token: req.cookies.token });
+  const result = req.query.result;
+
+  const page = parseInt(req.query.page) || 1;
+  let requests = [];
+  let totalPages = 0;
+  if (result) {
+    requests = await PrintRequest.find({
+      token: req.cookies.token,
+      result: result,
+    });
+    totalPages = Math.ceil(requests.length / 20);
+    requests = await PrintRequest.find({
+      token: req.cookies.token,
+      result: result,
+    })
+      .skip((page - 1) * 20)
+      .limit(20);
+  } else {
+    requests = await PrintRequest.find({
+      token: req.cookies.token,
+    });
+    totalPages = Math.ceil(requests.length / 20);
+    requests = await PrintRequest.find({
+      token: req.cookies.token,
+    })
+      .skip((page - 1) * 20)
+      .limit(20);
+  }
+
   let printPageSize = [];
   requests.forEach((request) => {
     let temp = "";
@@ -121,6 +149,8 @@ module.exports.logOrder = async (req, res) => {
       requests: requests,
       printPageSize: printPageSize,
       printers: printers,
+      page: page,
+      totalPages: totalPages,
     });
   });
 };
