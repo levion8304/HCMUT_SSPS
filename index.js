@@ -12,7 +12,6 @@ const database = require("./config/database");
 
 const methodOverride = require("method-override");
 
-
 const app = express();
 app.use(express.json());
 const port = process.env.PORT;
@@ -30,14 +29,16 @@ app.set("view engine", "pug");
 app.use(express.static(`${__dirname}/public`));
 
 app.use(cookieParser("keyboard cat"));
-app.use(session({ cookie: { maxAge: 60000 } }));
+app.use(
+  session({ secret: "keyboard cat", resave: true, saveUninitialized: true })
+);
 app.use(flash());
 
 clientRoutes(app);
 adminRoutes(app);
 
 app.use("*", (req, res) => {
-  res.send("404 NOT FOUND")
+  res.send("404 NOT FOUND");
 });
 
 // App locals variables
